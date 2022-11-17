@@ -1,14 +1,10 @@
-import React, { useCallback, useState, useEffect } from "react";
-import Axios from 'axios';
+import React from "react";
+import StartButtonsContainer from "../components/StartButtonsContainer";
 
 function Start() {
-  const [user, setUser] = useState({});
-  const [isLogged, setIsLogged] = useState(false);
-
   return ( 
     <div>
-      <h1>Start</h1>
-      {isLogged ? <h2>Logged in</h2> : <h2>Not logged in</h2>}
+      <StartButtonsContainer />
     </div>
    );
 }

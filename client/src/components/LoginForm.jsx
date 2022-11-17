@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NgContext from '../context/NgContext';
 import Axios from 'axios';
 
 function LoginForm(props) {
-  const [user, setUser] = useState('');
+  const { setUser, setAccount } = useContext(NgContext);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [isUserValid, setIsUserValid] = useState(false);
@@ -13,11 +15,11 @@ function LoginForm(props) {
   useEffect(() => {
     const userRegex = /^.{3,}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-    const userTest = userRegex.test(user);
+    const userTest = userRegex.test(username);
     const passwordTest = passwordRegex.test(password);
     setIsUserValid(userTest);
     setIsPasswordValid(passwordTest);
-  }, [user, password]);
+  }, [username, password]);
 
   useEffect(() => {
     if (isUserValid && isPasswordValid) {
@@ -30,11 +32,16 @@ function LoginForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const body = {
-      user_name: user,
+      user_name: username,
       password: password
     };
-    const { data } = await Axios.post('http://127.0.0.1:5000/user/login', body); 
-    console.log(data);
+    const { data } = await Axios.post('http://127.0.0.1:5000/user/login', body, { withCredentials: true });
+    if (data) {
+      setUser(data.hasUser);
+      setAccount(data.account);
+      console.log(data);
+      navigate('/home');
+    }
   };
 
   return ( 
@@ -48,7 +55,7 @@ function LoginForm(props) {
           className="login-form-input"
           type="text"
           placeholder="Username"
-          onChange={ ({ target }) => setUser(target.value) }
+          onChange={ ({ target }) => setUsername(target.value) }
         />
         <input
           className="login-form-input"
@@ -64,6 +71,7 @@ function LoginForm(props) {
         </button>
         <button
           className="login-form-button"
+          disabled={ disabled }
           onClick={() => navigate('/')}
         >
           Cancel

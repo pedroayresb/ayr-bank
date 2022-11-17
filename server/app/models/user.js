@@ -29,16 +29,14 @@ const Transaction = db.define('transaction', {
     allowNull: false,
     primaryKey: true,
   },
-  debitedAccountId: Sequelize.INTEGER,
-  creditedAccountId: Sequelize.INTEGER,
   value: Sequelize.INTEGER,
   createdAt: Sequelize.DATE,
 });
 
 User.belongsTo(Account, { foreignKey: 'account_id' });
 
-Transaction.belongsTo(Account, { as: 'debitedAccount' });
-Transaction.belongsTo(Account, { as: 'creditedAccount' });
+Transaction.belongsTo(Account, { foreignKey: 'debitedAccount' });
+Transaction.belongsTo(Account, { foreignKey: 'creditedAccount' });
 
 module.exports = {
   User,
