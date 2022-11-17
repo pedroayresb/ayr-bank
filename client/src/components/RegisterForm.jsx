@@ -41,8 +41,9 @@ function LoginForm(props) {
     if (data) {
       setUser(data.hasUser);
       setAccount(data.account);
+      document.cookie = `accessToken=${data.accessToken}`;
+      navigate('/home');
     }
-    navigate('/home');
   };
 
   return ( 

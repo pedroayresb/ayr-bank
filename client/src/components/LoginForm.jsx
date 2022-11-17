@@ -39,7 +39,7 @@ function LoginForm(props) {
     if (data) {
       setUser(data.hasUser);
       setAccount(data.account);
-      document.cookie = `${data.accessToken}`;
+      document.cookie = `accessToken=${data.accessToken}`;
       navigate('/home');
     }
   };
@@ -65,16 +65,16 @@ function LoginForm(props) {
         />
         <button 
           className="login-form-button"
+          // disabled={ disabled }
           onClick={handleSubmit}
         >
           Login
         </button>
         <button
           className="login-form-button"
-          disabled={ disabled }
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/register')}
         >
-          Cancel
+          Register
         </button>
       </form>
     </div>

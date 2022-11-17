@@ -5,13 +5,15 @@ import WelcomeHeader from '../components/WelcomeHeader';
 import AccountButtonsContainer from '../components/AccountButtonsContainer';
 import AccountActionContainer from '../components/AccountActionContainer';
 import Axios from 'axios';
+import '../styles/Home.css';
 
 function Home() {
   const { setUser, setAccount } = useContext(NgContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const cookie = document.cookie;
+    const cookie = document.cookie.split('=')[1];
+    console.log(cookie);
     const body = {
       accessToken: cookie
     };
@@ -32,10 +34,12 @@ function Home() {
   }, []);
 
   return ( 
-    <div>
+    <div className="page">
       <WelcomeHeader />
-      <AccountButtonsContainer />
-      <AccountActionContainer />
+      <div className="home-container">
+        <AccountButtonsContainer />
+        <AccountActionContainer />
+      </div>
     </div>
    );
 }

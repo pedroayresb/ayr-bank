@@ -9,6 +9,7 @@ router
   .post('/register', validateRegister, controller.register)
   .get('/', controller.getUsers)
   .get('/profile', validateToken, controller.getProfile)
+  .get('/:id', controller.getUserById)
   .post('/autologin', controller.loginWithToken);
 
 

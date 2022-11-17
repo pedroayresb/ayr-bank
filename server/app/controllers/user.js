@@ -3,7 +3,7 @@ const Account = require('../models/user').Account;
 const CryptoJS = require("crypto-js");
 
 const { createTokens } = require('../JWT');
-const { sign, verify } = require("jsonwebtoken");
+const { verify } = require("jsonwebtoken");
 
 
 exports.login = async (req, res, next) => {
@@ -60,6 +60,16 @@ exports.getProfile = (req, res, next) => {
       res.status(500).json({ message: 'Error' });
     }
   );
+}
+
+exports.getUserById = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findOne({ where: { id } });
+  if (user) {
+    res.status(200).json({ user });
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
 }
 
 exports.loginWithToken = async (req, res, next) => {

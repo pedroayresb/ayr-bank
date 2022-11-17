@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import NgContext from '../context/NgContext';
+import '../styles/AccountButtonsContainer.css';
 
 function AccountButtonsContainer() {
   const { setShowHistory } = useContext(NgContext);

@@ -9,7 +9,7 @@ exports.transfer = async (req, res, next) => {
   if (!hasUser) {
     res.status(400).json({ message: 'User does not exist' });
   } else if (!hasReciver) {
-    res.status(400).json({ message: 'Sender does not exist' });
+    res.status(400).json({ message: 'Recipient does not exist' });
   } else if (hasUser.id === hasReciver.id) {
     res.status(400).json({ message: 'You cannot send money to yourself' });
   } else {
@@ -20,19 +20,14 @@ exports.transfer = async (req, res, next) => {
       const recieverAccount = await Account.findOne({ where: { id: hasReciver.account_id } });
       const newRecieverBalance = Number(recieverAccount.balance) + Number(amount);
       await Account.update({ balance: Number(newRecieverBalance) }, { where: { id: recieverAccount.id } });
-      const sendTransaction = await Transaction.create({ 
-        value: Number(amount),
-        creditedAccount: hasReciver.id,
-        debitedAccount: hasUser.id,
-        createdAt: new Date(),
-      });
       await Transaction.create({ 
         value: Number(amount),
         creditedAccount: hasUser.id,
         debitedAccount: hasReciver.id,
         createdAt: new Date(),
       });
-      res.status(200).json({ message: 'Transfer Successful', sendTransaction });
+      const newAccount = await Account.findOne({ where: { id: hasUser.account_id } });
+      res.status(200).json({ message: 'Transfer Successful', newAccount });
     } else {
       res.status(400).json({ message: 'Insufficient Funds' });
     }
@@ -72,4 +67,9 @@ exports.getRecieveHistory = async (req, res, next) => {
   } else {
     res.status(400).json({ message: 'User does not exist' });
   }
+}
+
+exports.getAllHistory = async (req, res, next) => {
+  const transactions = await Transaction.findAll();
+  res.status(200).json({ transactions });
 }
