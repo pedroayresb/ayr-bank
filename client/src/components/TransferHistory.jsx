@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import NgContext from '../context/NgContext';
+import FilterHistoryButtons from './FilterHistoryButtons';
 import Axios from 'axios';
 
 function TransferHistory() {
-  const [history, setHistory] = useState([]);
-  const { user } = useContext(NgContext);
+  const { history, user, setHistory } = useContext(NgContext);
 
   useEffect(() => {
     const getHistory = async () => {
-      console.log(user.user_name);
+      const cookie = document.cookie;
       const { data } = await Axios.post(`http://localhost:5000/transaction/history`, {
-        user_name: user.user_name
+        user_name: user.user_name,
+        accessToken: cookie
       }, { withCredentials: true });
       setHistory(data.transactions);
     };
@@ -22,6 +23,7 @@ function TransferHistory() {
       className="transfer-history"
     >
       <h1>Transfer History</h1>
+      <FilterHistoryButtons />
       <table>
         <thead>
           <tr>

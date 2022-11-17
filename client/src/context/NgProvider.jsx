@@ -6,9 +6,9 @@ function NgProvider({ children }) {
   const [user, setUser] = useState({});
   const [account, setAccount] = useState({});
   const [transactions, setTransactions] = useState([]);
-  const [jwt, setJwt] = useState('');
   const [language, setLanguage] = useState(navigator.language);
   const [showHistory, setShowHistory] = useState(false);
+  const [history, setHistory] = useState([]);
 
   const context = {
     user,
@@ -17,12 +17,12 @@ function NgProvider({ children }) {
     setAccount,
     transactions,
     setTransactions,
-    jwt,
-    setJwt,
     language,
     setLanguage,
     showHistory,
     setShowHistory,
+    history,
+    setHistory,
   };
 
   return (

@@ -4,7 +4,7 @@ import NgContext from '../context/NgContext';
 import Axios from 'axios';
 
 function LoginForm(props) {
-  const { setUser, setAccount } = useContext(NgContext);
+  const { setUser, setAccount, setJwt } = useContext(NgContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -39,7 +39,7 @@ function LoginForm(props) {
     if (data) {
       setUser(data.hasUser);
       setAccount(data.account);
-      console.log(data);
+      document.cookie = `${data.accessToken}`;
       navigate('/home');
     }
   };

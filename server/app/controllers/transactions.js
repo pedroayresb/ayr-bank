@@ -51,3 +51,25 @@ exports.getHistory = async (req, res, next) => {
     res.status(400).json({ message: 'User does not exist' });
   }
 }
+
+exports.getSendHistory = async (req, res, next) => {
+  const { user_name } = req.body;
+  const hasUser = await User.findOne({ where: { user_name } });
+  if (hasUser) {
+    const sendTransactions = await Transaction.findAll({ where: { creditedAccount: hasUser.id } });
+    res.status(200).json({ sendTransactions });
+  } else {
+    res.status(400).json({ message: 'User does not exist' });
+  }
+}
+
+exports.getRecieveHistory = async (req, res, next) => {
+  const { user_name } = req.body;
+  const hasUser = await User.findOne({ where: { user_name } });
+  if (hasUser) {
+    const recieveTransactions = await Transaction.findAll({ where: { debitedAccount: hasUser.id } });
+    res.status(200).json({ recieveTransactions });
+  } else {
+    res.status(400).json({ message: 'User does not exist' });
+  }
+}

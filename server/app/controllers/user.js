@@ -3,6 +3,7 @@ const Account = require('../models/user').Account;
 const CryptoJS = require("crypto-js");
 
 const { createTokens } = require('../JWT');
+const { sign, verify } = require("jsonwebtoken");
 
 
 exports.login = async (req, res, next) => {
@@ -11,11 +12,13 @@ exports.login = async (req, res, next) => {
   const hasUser = await User.findOne({ where: { user_name, password: hashedPassword } });
   if (hasUser) {
     const account = await Account.findOne({ where: { id: hasUser.account_id } });
-    res.cookie('accessToken', createTokens(hasUser), {
+    const accessToken = createTokens(hasUser);
+    res.cookie('accessToken', accessToken, {
       expires: new Date(Date.now() + 86400000),
       httpOnly: true,
+      SameSite: 'Strict',
     });
-    res.status(200).json({ hasUser, account });
+    res.status(200).json({ hasUser, account, accessToken });
   } else {
     res.status(401).json({ message: 'Login Failed' });
   }
@@ -57,4 +60,20 @@ exports.getProfile = (req, res, next) => {
       res.status(500).json({ message: 'Error' });
     }
   );
+}
+
+exports.loginWithToken = async (req, res, next) => {
+  const { accessToken } = req.body;
+  console.log(accessToken);
+
+  if (!accessToken) {
+    return res.status(400).json({ error: "User not Authenticated!" });
+  }
+
+  const validToken = verify(accessToken, "ngprojetct");
+  if (validToken) {
+    const hasUser = await User.findOne({ where: { id: validToken.id } });
+    const account = await Account.findOne({ where: { id: hasUser.account_id } });
+    res.status(200).json({ message: 'User Authenticated!', hasUser, account });
+  }
 }
