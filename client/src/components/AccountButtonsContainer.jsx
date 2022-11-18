@@ -1,24 +1,24 @@
-import React, { useContext } from 'react';
-import NgContext from '../context/NgContext';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AccountButtonsContainer.css';
 
 function AccountButtonsContainer() {
-  const { setShowHistory } = useContext(NgContext);
+  const navigate = useNavigate();
   return ( 
     <div
       className="account-buttons-container"
     >
       <button
         className="account-button"
-        onClick={() => setShowHistory(false)}
+        onClick={() => navigate('/transfer')}
       >
-        Transfer
+        transfer
       </button>
       <button
         className="account-button"
-        onClick={() => setShowHistory(true)}
+        onClick={() => navigate('/history')}
       >
-        History
+        history
       </button>
     </div>
    );

@@ -29,11 +29,11 @@ function HistoryCard(props) {
     <div className="history-card">
       <div className="history-card-square">
         <p>From:</p>
-        <p>{debitedAccountName}</p>
+        <p>{creditedAccountName}</p>
       </div>
       <div className="history-card-square">
         <p>To:</p>
-        <p>{creditedAccountName}</p>
+        <p>{debitedAccountName}</p>
       </div>
       <div className="history-card-square">
         <p>Value:</p>

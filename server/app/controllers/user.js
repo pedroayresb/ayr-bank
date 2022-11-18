@@ -20,7 +20,7 @@ exports.login = async (req, res, next) => {
     });
     res.status(200).json({ hasUser, account, accessToken });
   } else {
-    res.status(401).json({ message: 'Login Failed' });
+    res.status(401).json({ message: 'Username or Password is Incorrect' });
   }
 };
 

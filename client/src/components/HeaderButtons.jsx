@@ -1,23 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logout from '../icons/logout.png';
+import '../styles/HeaderButtons.css';
+
 
 function HeaderButtons() {
   const navigate = useNavigate();
   return ( 
-    <div
-      className="header-buttons"
-    >
       <button
         type="button"
+        className="header-button"
         onClick={() => {
           document.cookie = 'accessToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
           navigate('/');
         }}
       >
-        Logout
+        <img
+          src={logout}
+          alt="logout"
+          className="header-button-icon"
+        />
       </button>
-    </div>
-    
    );
 }
 

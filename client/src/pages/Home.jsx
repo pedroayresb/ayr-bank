@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NgContext from '../context/NgContext';
-import WelcomeHeader from '../components/WelcomeHeader';
+import Footer from '../components/Footer';
+import HeaderButtons from '../components/HeaderButtons';
 import AccountButtonsContainer from '../components/AccountButtonsContainer';
-import AccountActionContainer from '../components/AccountActionContainer';
+import AccountBalance from '../components/AccountBalance';
+import HideBalanceButton from '../components/HideBalanceButton';
 import Axios from 'axios';
 import '../styles/Home.css';
 
@@ -35,11 +37,15 @@ function Home() {
 
   return ( 
     <div className="page">
-      <WelcomeHeader />
-      <div className="home-container">
-        <AccountButtonsContainer />
-        <AccountActionContainer />
+      <HeaderButtons />
+      <HideBalanceButton />
+      <AccountButtonsContainer />
+      <div
+        className="account-action-container"
+      >
+        <AccountBalance />
       </div>
+      <Footer />
     </div>
    );
 }

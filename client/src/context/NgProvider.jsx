@@ -7,7 +7,7 @@ function NgProvider({ children }) {
   const [account, setAccount] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [language, setLanguage] = useState(navigator.language);
-  const [showHistory, setShowHistory] = useState(false);
+  const [showBalance, setShowBalance] = useState(false);
   const [history, setHistory] = useState([]);
 
   const context = {
@@ -19,10 +19,10 @@ function NgProvider({ children }) {
     setTransactions,
     language,
     setLanguage,
-    showHistory,
-    setShowHistory,
     history,
     setHistory,
+    showBalance,
+    setShowBalance,
   };
 
   return (

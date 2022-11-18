@@ -1,0 +1,8 @@
+@import url(//db.onlinewebfonts.com/c/3bd84147fc91089c2d9a15e632291f25?family=News+Gothic);
+@font-face {font-family: "News Gothic"; src: url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.eot"); src: url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.woff") format("woff"), url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/3bd84147fc91089c2d9a15e632291f25.svg#News Gothic") format("svg"); }
+body {
+  margin: 0;
+  background-image: url('./icons/backgroung.jpg');
+  color: white;
+  font-family: "News Gothic";
+}

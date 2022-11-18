@@ -18,7 +18,7 @@ function TransferHistory() {
       const formattedTime = data.transactions.map((transaction) => {
         const date = new Date(transaction.createdAt);
         const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-        const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
+        const formattedTime = `${date.getHours()}:${('0'+date.getMinutes()).slice(-2)}`;
         const unordered = { ...transaction, createdAt: `${formattedDate} ${formattedTime}` };
         return unordered;
       });

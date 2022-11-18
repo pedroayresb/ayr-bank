@@ -7,6 +7,7 @@ function TransferForm() {
   const { user, setAccount } = useContext(NgContext);
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
+  const [message, setMessage] = useState('');
 
 
   const handleRecipientChange = (e) => {
@@ -26,8 +27,12 @@ function TransferForm() {
       amount: amount,
       accessToken: cookie
     };
-    const { data } = await Axios.put('http://localhost:5000/transaction/transfer', body, { withCredentials: true });
+    const { data } = await Axios.put('http://localhost:5000/transaction/transfer', body, { withCredentials: true })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
     setAccount(data.newAccount);
+    setMessage(data.message);
   };
 
   return ( 
@@ -61,6 +66,7 @@ function TransferForm() {
           Transfer
         </button>
       </form>
+      <p>{message}</p>
     </div>
    );
 }

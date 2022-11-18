@@ -11,6 +11,8 @@ function LoginForm(props) {
   const [disabled, setDisabled] = useState(true);
   const [isUserValid, setIsUserValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,12 +33,16 @@ function LoginForm(props) {
   }, [isUserValid, isPasswordValid, checked]);
 
   const handleSubmit = async (e) => {
+    setIsClicked(true);
     e.preventDefault();
     const body = {
       user_name: username,
       password: password
     };
-    await Axios.post('http://127.0.0.1:5000/user/register', body, { withCredentials: true });
+    await Axios.post('http://127.0.0.1:5000/user/register', body, { withCredentials: true })
+      .catch((err) => {
+        setMessage(err.response.data.message);
+      });
     const { data } = await Axios.post('http://127.0.0.1:5000/user/login', body, { withCredentials: true });
     if (data) {
       setUser(data.hasUser);
@@ -77,12 +83,13 @@ function LoginForm(props) {
         </label>
         <button 
           className="login-form-button"
-          disabled={ disabled }
+          // disabled={ disabled }
           onClick={handleSubmit}
         >
           Sign Up
         </button>
       </form>
+      { isClicked && <p>{message}</p> }
     </div>
   );
 }

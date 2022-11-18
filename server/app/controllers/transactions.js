@@ -6,31 +6,31 @@ exports.transfer = async (req, res, next) => {
   const { user_name, amount, reciever_name } = req.body;
   const hasUser = await User.findOne({ where: { user_name } });
   const hasReciver = await User.findOne({ where: { user_name: reciever_name } });
-  if (!hasUser) {
+  const account = await Account.findOne({ where: { id: hasUser.account_id } });
+  if (hasUser === null) {
     res.status(400).json({ message: 'User does not exist' });
-  } else if (!hasReciver) {
+  } else if (hasReciver === null) {
     res.status(400).json({ message: 'Recipient does not exist' });
   } else if (hasUser.id === hasReciver.id) {
     res.status(400).json({ message: 'You cannot send money to yourself' });
-  } else {
-    const account = await Account.findOne({ where: { id: hasUser.account_id } });
-    if (Number(account.balance) >= Number(amount)) {
-      const newSenderBalance = Number(account.balance) - Number(amount);
-      await Account.update({ balance: Number(newSenderBalance) }, { where: { id: account.id } });
-      const recieverAccount = await Account.findOne({ where: { id: hasReciver.account_id } });
-      const newRecieverBalance = Number(recieverAccount.balance) + Number(amount);
-      await Account.update({ balance: Number(newRecieverBalance) }, { where: { id: recieverAccount.id } });
-      await Transaction.create({ 
-        value: Number(amount),
-        creditedAccount: hasUser.id,
-        debitedAccount: hasReciver.id,
-        createdAt: new Date(),
-      });
-      const newAccount = await Account.findOne({ where: { id: hasUser.account_id } });
-      res.status(200).json({ message: 'Transfer Successful', newAccount });
-    } else {
-      res.status(400).json({ message: 'Insufficient Funds' });
-    }
+  } else if (Number(amount) <= 0) {
+    res.status(400).json({ message: 'Amount must be greater than 0' });
+  } else if (Number(amount) <= account.balance) {
+    const newSenderBalance = Number(account.balance) - Number(amount);
+    await Account.update({ balance: Number(newSenderBalance) }, { where: { id: account.id } });
+    const recieverAccount = await Account.findOne({ where: { id: hasReciver.account_id } });
+    const newRecieverBalance = Number(recieverAccount.balance) + Number(amount);
+    await Account.update({ balance: Number(newRecieverBalance) }, { where: { id: recieverAccount.id } });
+    await Transaction.create({ 
+      value: Number(amount),
+      creditedAccount: hasUser.id,
+      debitedAccount: hasReciver.id,
+      createdAt: new Date(),
+    });
+    const newAccount = await Account.findOne({ where: { id: hasUser.account_id } });
+    res.status(200).json({ message: 'Transfer Successful', newAccount });
+  } else if (Number(amount) > account.balance) {
+    res.status(400).json({ message: 'Insufficient Funds' });
   }
 }
 
