@@ -37,31 +37,33 @@ function TransferForm() {
 
   return ( 
     <div
-      className="transfer-form"
+      className="transfer-form-container"
     >
-      <h1>Transfer</h1>
-      <form>
-        <label htmlFor="to">
-          To:
+      <form className="transfer-form">
+        <label htmlFor="to" className="transfer-form-label">
+          to:
           <input
             type="text"
             name="to"
             id="to"
+            className='transfer-input'
             onChange={handleRecipientChange}
           />
         </label>
-        <label htmlFor="value">
-          Value: $
+        <label htmlFor="value" className="transfer-form-label">
+          value: R$
           <input
             type="number"
             name="value"
             id="value"
+            className='transfer-input'
             onChange={handleAmountChange}
           />
         </label>
         <button
           type="button"
           onClick={handleSubmit}
+          className='transfer-button'
         >
           Transfer
         </button>

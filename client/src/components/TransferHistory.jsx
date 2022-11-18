@@ -33,23 +33,31 @@ function TransferHistory() {
   }, []);
 
 
-
   return ( 
     <div
       className="transfer-history"
     >
-      <h1>Transfer History</h1>
       <FilterHistoryButtons />
-      <div className="history-cards">
-        {history.map((transaction) => (
-          <HistoryCard
-            key={transaction._id}
-            creditedAccount={transaction.creditedAccount}
-            debitedAccount={transaction.debitedAccount}
-            value={transaction.value}
-            createdAt={transaction.createdAt}
-          />
-        ))}
+      <div className="history-table-container">
+        <table className="history-table">
+          <thead>
+            <tr className="history-table-line">
+              <th className="history-table-head">Sender</th>
+              <th className="history-table-head">Recipient</th>
+              <th className="history-table-head">Amount</th>
+              <th className="history-table-head">Date</th>
+            </tr>
+          </thead>
+          {history.map((transaction) => (
+            <HistoryCard
+              key={transaction._id}
+              creditedAccount={transaction.creditedAccount}
+              debitedAccount={transaction.debitedAccount}
+              value={transaction.value}
+              createdAt={transaction.createdAt}
+            />
+          ))}
+        </table>
       </div>
     </div>
    );

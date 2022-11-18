@@ -2,34 +2,16 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NgContext from '../context/NgContext';
 import Axios from 'axios';
+import Input from '@mui/material/Input';
+import '../styles/LoginForm.css';
 
 function LoginForm(props) {
-  const { setUser, setAccount, setJwt } = useContext(NgContext);
+  const { setUser, setAccount } = useContext(NgContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
   const [message, setMessage] = useState('');
   const [isClicked, setIsClicked] = useState(false);
-  const [isUserValid, setIsUserValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const userRegex = /^.{3,}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-    const userTest = userRegex.test(username);
-    const passwordTest = passwordRegex.test(password);
-    setIsUserValid(userTest);
-    setIsPasswordValid(passwordTest);
-  }, [username, password]);
-
-  useEffect(() => {
-    if (isUserValid && isPasswordValid) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [isUserValid, isPasswordValid]);
 
   const handleSubmit = async (e) => {
     setIsClicked(true);
@@ -52,36 +34,41 @@ function LoginForm(props) {
 
   return ( 
     <div
-      className="login-form"
+      className="login-form-container"
     >
       <form
         className="login-form"
       >
-        <input
+        <Input
           className="login-form-input"
           type="text"
           placeholder="Username"
+          name="Username"
+          required={true}
           onChange={ ({ target }) => setUsername(target.value) }
         />
-        <input
+        <Input
           className="login-form-input"
           type="password"
           placeholder="Password"
+          name="Username"
+          required={true}
           onChange={ ({ target }) => setPassword(target.value) }
         />
-        <button 
-          className="login-form-button"
-          // disabled={ disabled }
-          onClick={handleSubmit}
-        >
-          Login
-        </button>
-        <button
-          className="login-form-button"
-          onClick={() => navigate('/register')}
-        >
-          Register
-        </button>
+        <div className="login-form-button-container">
+          <button 
+            className="login-form-button"
+            onClick={handleSubmit}
+          >
+            Login
+          </button>
+          <button
+            className="login-form-button"
+            onClick={() => navigate('/register')}
+          >
+            Register
+          </button>
+        </div>
       </form>
       {isClicked && <p>{message}</p>}
     </div>

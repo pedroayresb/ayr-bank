@@ -2,6 +2,8 @@ const User = require('../models/user').User;
 const Account = require('../models/user').Account;
 const Transaction = require('../models/user').Transaction;
 
+const { Op } = require('sequelize');
+
 exports.transfer = async (req, res, next) => {
   const { user_name, amount, reciever_name } = req.body;
   const hasUser = await User.findOne({ where: { user_name } });
@@ -73,3 +75,4 @@ exports.getAllHistory = async (req, res, next) => {
   const transactions = await Transaction.findAll();
   res.status(200).json({ transactions });
 }
+

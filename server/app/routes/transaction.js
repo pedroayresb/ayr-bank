@@ -8,6 +8,6 @@ router
   .put('/transfer', validateToken, controller.transfer)
   .post('/history', validateToken, controller.getHistory)
   .post('/sendhistory', validateToken, controller.getSendHistory)
-  .post('/recievehistory', validateToken, controller.getRecieveHistory);
+  .post('/recievehistory', validateToken, controller.getRecieveHistory)
 
 module.exports = router;

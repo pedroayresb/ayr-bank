@@ -23,33 +23,23 @@ function HistoryCard(props) {
     };
     getCreditedAccountName();
     getDebitedAccountName();
-  }, []);
+  }, [creditedAccount, debitedAccount]);
 
   return ( 
-    <div className="history-card">
-      <div className="history-card-square">
-        <p>From:</p>
-        <p>{creditedAccountName}</p>
-      </div>
-      <div className="history-card-square">
-        <p>To:</p>
-        <p>{debitedAccountName}</p>
-      </div>
-      <div className="history-card-square">
-        <p>Value:</p>
-        <p>${value}</p>
-      </div>
-      <div className="history-card-square">
-        <p>Date:</p>
-        <p>{createdAt}</p>
-      </div>
-    </div>
+    <tbody className="history-table-line">
+      <tr className="history-table-body">
+        <td>{creditedAccountName}</td>
+        <td>{debitedAccountName}</td>
+        <td>{value}</td>
+        <td>{createdAt}</td>
+      </tr>
+  </tbody>
    );
 }
 
 HistoryCard.propTypes = {
-  creditedAccount: PropTypes.string.isRequired,
-  debitedAccount: PropTypes.string.isRequired,
+  creditedAccount: PropTypes.number.isRequired,
+  debitedAccount: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   createdAt: PropTypes.string.isRequired
 };

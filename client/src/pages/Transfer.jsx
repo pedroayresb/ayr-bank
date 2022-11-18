@@ -12,9 +12,7 @@ function Transfer() {
     <div className="page">
       <HeaderButtons />
       <HideBalanceButton />
-      <div className="home-container">
-        <AccountButtonsContainer />
-      </div>
+      <AccountButtonsContainer />
       <div
         className="account-action-container"
       >

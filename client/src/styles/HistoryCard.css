@@ -1,17 +1,4 @@
-.history-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 30px;
-  border-radius: 0.5rem;
-  background-color: #fff;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  width: 80%;
-}
-
-.history-card-square {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.history-table-body {
+  text-align: center;
+  padding: 5px;
 }

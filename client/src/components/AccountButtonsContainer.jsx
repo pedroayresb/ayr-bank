@@ -4,19 +4,38 @@ import '../styles/AccountButtonsContainer.css';
 
 function AccountButtonsContainer() {
   const navigate = useNavigate();
+  const url = window.location.href;
+
+  const handleSecondTransferClick = () => {
+    if (url.includes('transfer')) {
+      return '/home';
+    } else {
+      return '/transfer';
+    }
+  };
+
+  const handleHistoryClick = () => {
+    if (url.includes('history')) {
+      return '/home';
+    } else {
+      return '/history';
+    }
+  };
+
+
   return ( 
     <div
       className="account-buttons-container"
     >
       <button
         className="account-button"
-        onClick={() => navigate('/transfer')}
+        onClick={() => navigate(handleSecondTransferClick())}
       >
         transfer
       </button>
       <button
         className="account-button"
-        onClick={() => navigate('/history')}
+        onClick={() => navigate(handleHistoryClick())}
       >
         history
       </button>

@@ -1,8 +1,15 @@
 .filter-history-buttons {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .filter-history-button {
-  margin-right: 10px;
-  
+  border-radius: 15px;
+  background-color: #1c1c1c;
+  border-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  font-weight: 100;
+  font-size: 13px;
 }
