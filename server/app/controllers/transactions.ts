@@ -72,8 +72,8 @@ const getHistory = async (req: Request, res: Response) => {
   const { user_name }: user = req.body;
   const hasUser: hasUser = await User.findOne({ where: { user_name } });
   if (hasUser) {
-    const sendTransactions: transaction = await Transaction.findAll({ where: { creditedAccount: hasUser.id } });
-    const recieveTransactions: transaction = await Transaction.findAll({ where: { debitedAccount: hasUser.id } });
+    const sendTransactions: any = await Transaction.findAll({ where: { creditedAccount: hasUser.id } });
+    const recieveTransactions: any = await Transaction.findAll({ where: { debitedAccount: hasUser.id } });
     const transactions: transaction = sendTransactions.concat(recieveTransactions);
     res.status(200).json({ transactions });
   } else {
@@ -85,7 +85,7 @@ const getSendHistory = async (req: Request, res: Response) => {
   const { user_name }: user = req.body;
   const hasUser: hasUser = await User.findOne({ where: { user_name } });
   if (hasUser) {
-    const sendTransactions: transaction = await Transaction.findAll({ where: { creditedAccount: hasUser.id } });
+    const sendTransactions: any = await Transaction.findAll({ where: { creditedAccount: hasUser.id } });
     res.status(200).json({ sendTransactions });
   } else {
     res.status(400).json({ message: 'User does not exist' });
@@ -96,7 +96,7 @@ const getRecieveHistory = async (req: Request, res: Response) => {
   const { user_name }: user = req.body;
   const hasUser: hasUser = await User.findOne({ where: { user_name } });
   if (hasUser) {
-    const recieveTransactions: transaction = await Transaction.findAll({ where: { debitedAccount: hasUser.id } });
+    const recieveTransactions: any = await Transaction.findAll({ where: { debitedAccount: hasUser.id } });
     res.status(200).json({ recieveTransactions });
   } else {
     res.status(400).json({ message: 'User does not exist' });
@@ -104,7 +104,7 @@ const getRecieveHistory = async (req: Request, res: Response) => {
 }
 
 const getAllHistory = async (req: Request, res: Response) => {
-  const transactions: transaction = await Transaction.findAll();
+  const transactions: any = await Transaction.findAll();
   res.status(200).json({ transactions });
 }
 
