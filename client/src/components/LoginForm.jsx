@@ -27,7 +27,9 @@ function LoginForm(props) {
     if (data) {
       setUser(data.hasUser);
       setAccount(data.account);
-      document.cookie = `accessToken=${data.accessToken}`;
+      const date = new Date();
+      date.setDate(date.getDate() + 1)
+      document.cookie = `accessToken=${data.accessToken}; expires=${date};`;
       navigate('/home');
     }
   };
