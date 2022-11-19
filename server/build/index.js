@@ -43,7 +43,7 @@ var database_1 = require("./util/database");
 var app = express();
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3050',
     exposedHeaders: ['accessToken']
 }));
 app.use(bodyParser.json());

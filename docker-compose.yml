@@ -33,10 +33,15 @@ services:
       - DATABASE=ng-project,
       - USERNAME=postgres,
       - PASSWORD=postgres_password,
+      - HOST=postgres,
+      - POSTGRES_PORT=5432
     volumes:
       - nps_data:/var/lib/postgresql/data
+      - ./server:/app
     depends_on:
       - postgres
+    ports:
+      - "5000:5000"
   client:
     stdin_open: true
     environment:
@@ -45,7 +50,6 @@ services:
       dockerfile: Dockerfile.dev
       context: ./client
     volumes:
-      - /app/node_modules
       - ./client:/app
 volumes:
   nps_data: {}

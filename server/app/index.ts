@@ -8,7 +8,7 @@ import * as User from './models/user'
 const app = express();
 app.use(cors({
   credentials: true, 
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3050',
   exposedHeaders: ['accessToken']
 }));
 app.use(bodyParser.json());
@@ -27,6 +27,6 @@ app.use('/transaction', require('./routes/transaction'));
   }
 })();
 
-app.listen(5000,  () => {
+app.listen(process.env.EXTERNAL_PORT,  () => {
   console.log("Listening");
 });

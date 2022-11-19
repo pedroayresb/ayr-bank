@@ -19,7 +19,10 @@ Foi primeiro desenvolvido em JavaScript e depois convertido para TypeScript. Ain
 <details>
   <summary><strong>Para rodar o projeto</strong></summary>
 
-Com o docker instalado, na pasta inicial do projeto, execute o `docker compose up`. Tenha certeza de que as portas 3000, 5000 e 5042 estejam disponíveis para execução. Após isso, o projeto ja deve iniciar diretamente no seu navegador, na tela de login. O projeto foi feito com uma mentalidade Mobile First na estilização, sendo a resolução ideal `390x844` (iPhone 12 Pro).
+Com o docker instalado, na pasta inicial do projeto, execute o `docker compose up`. Tenha certeza de que as portas `3050`, `5000` e `5042` estejam disponíveis para execução. 
+Para rodar o banco de dados, execute `docker exec -it api-1 bash`, `cd app` e `USERNAME=postgres PASSWORD=postgres_password HOST=postgres DATABASE=ng-project npm run dev` e a database deve ser iniciada normalmente.
+
+Para rodar o front end, entre no `localhost:3050` depois de iniciar o banco de dados e tudo deve estar rodando corretamente
 
 
   <br />
