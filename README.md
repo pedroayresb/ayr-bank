@@ -1,6 +1,6 @@
 # Bem Vindo ao repositório do Projeto NG-Project!
 
-Este projeto foi desenvolvido por [Pedro Ayres](https://www.linkedin.com/in/pedroayresb/), com as tecnologias JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React. 
+Este projeto foi desenvolvido por [Pedro Ayres](https://www.linkedin.com/in/pedroayresb/). 
 
 ## O que foi desenvolvido?
 
@@ -11,7 +11,7 @@ O projeto é um aplicativo de transferência de dinheiro entre dois usuários. V
 <details>
   <summary><strong>Sobre o projeto</strong></summary>
 
-O projeto utiliza das tecnologias citadas acima; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React.
+O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React.
 
   <br />
 </details>
