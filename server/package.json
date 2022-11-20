@@ -4,6 +4,7 @@
   "description": "backend ng-project",
   "main": "./build/index.js",
   "scripts": {
+    "preinstall": "npm i nodemon -g",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "start": "node ./build/index.js"

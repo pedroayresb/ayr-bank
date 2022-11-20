@@ -32,8 +32,8 @@ services:
       - EXTERNAL_PORT=5000
       - DATABASE=ng-project,
       - USERNAME=postgres,
+      - HOST=localhost,
       - PASSWORD=postgres_password,
-      - HOST=postgres,
       - POSTGRES_PORT=5432
     volumes:
       - nps_data:/var/lib/postgresql/data
