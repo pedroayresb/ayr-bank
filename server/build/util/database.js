@@ -8,7 +8,7 @@ var database = process.env.DATABASE ? process.env.DATABASE : 'ng-project';
 var username = process.env.USERNAME ? process.env.USERNAME : 'postgres';
 var password = process.env.PASSWORD ? process.env.PASSWORD : 'postgres_password';
 var host = process.env.HOST ? process.env.HOST : 'localhost';
-console.log(database, username, password);
+console.log(database, 'postgres', password);
 var db = new sequelize_1.Sequelize(database, username, password, {
     host: host,
     dialect: 'postgres',
