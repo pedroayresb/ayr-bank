@@ -2,8 +2,6 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
-    tty: true
-    stdin_open: true
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_HOST=postgres
@@ -24,9 +22,8 @@ services:
       - "3050:80"
   api:
     image: node:latest
-    tty: true
-    stdin_open: true
     build:
+      dockerfile: Dockerfile.dev
       context: "./server"
     environment:
       - EXTERNAL_PORT=5000
@@ -36,16 +33,12 @@ services:
       - PASSWORD=postgres_password,
       - POSTGRES_PORT=5432
     volumes:
-      - nps_data:/var/lib/postgresql/data
       - ./server:/app
     depends_on:
       - postgres
     ports:
       - "5000:5000"
   client:
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
     build:
       dockerfile: Dockerfile.dev
       context: ./client

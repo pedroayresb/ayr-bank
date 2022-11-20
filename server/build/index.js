@@ -67,6 +67,6 @@ app.use('/transaction', require('./routes/transaction'));
         }
     });
 }); })();
-app.listen(5000, function () {
+app.listen(process.env.EXTERNAL_PORT, function () {
     console.log("Listening");
 });

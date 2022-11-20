@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { Sequelize } from 'sequelize';
 
 const database = process.env.DATABASE ? process.env.DATABASE : 'ng-project';
@@ -14,6 +16,7 @@ const db = new Sequelize(
   {
     host: host,
     dialect: 'postgres',
+    port: 5432,
   }
 );
 
