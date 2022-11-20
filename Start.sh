@@ -5,3 +5,4 @@ cd server
 npm i
 cd ..
 docker-compose up
+

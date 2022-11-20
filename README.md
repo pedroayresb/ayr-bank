@@ -19,9 +19,10 @@ O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Post
 <details>
   <summary><strong>Para rodar o projeto</strong></summary>
 
-Com o docker instalado, abra o arquivo `Start.sh`. Ele executa todos os comandos e instala todas as dependências para que o Docker consiga abrir os containers sem problema. Tenha certeza de que as portas `3050`, `5000` e `5042` estejam disponíveis, pois essas são as utilizadas pelo app.
+Com o docker instalado, na pasta inicial do projeto, execute o `docker compose up`. Tenha certeza de que as portas `3050`, `5000` e `5042` estejam disponíveis para execução. 
+Para rodar o banco de dados, execute `docker exec -it ng-project-sqlize-api-1 bash`, `cd app` e `USERNAME=postgres PASSWORD=postgres_password HOST=postgres DATABASE=ng-project npm run dev` e a database deve ser iniciada normalmente.
 
-Para rodar o front end, entre no `localhost:3050`. A resolução utilizada foi a 380:844 (iPhone 12 Pro), sendo essa a ideal para a execução do aplicativo.
+Para rodar o front end, entre no `localhost:3050` depois de iniciar o banco de dados e tudo deve estar rodando corretamente
 
 
   <br />
