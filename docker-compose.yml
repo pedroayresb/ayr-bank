@@ -16,14 +16,13 @@ services:
       - client
     restart: always
     build:
-      dockerfile: Dockerfile.dev
       context: ./nginx
+      dockerfile: Dockerfile.dev
     ports:
       - "3050:80"
   api:
     image: node:latest
     build:
-      dockerfile: Dockerfile.dev
       context: "./server"
     environment:
       - EXTERNAL_PORT=5000
@@ -40,8 +39,8 @@ services:
       - "5000:5000"
   client:
     build:
-      dockerfile: Dockerfile.dev
       context: ./client
+      dockerfile: Dockerfile.dev
     volumes:
       - ./client:/app
 volumes:
