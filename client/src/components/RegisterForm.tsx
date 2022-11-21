@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { NgContext } from '../context/NgContext';
-import taskApi from '../utils/fetch';
 import '../styles/LoginForm.css';
 
 type input = string;
@@ -14,7 +12,6 @@ interface body {
 }
 
 function LoginForm() {
-  const { setUser, setAccount } = React.useContext(NgContext);
   const [username, setUsername] = React.useState<input>('');
   const [password, setPassword] = React.useState<input>('');
   const [checked, setChecked] = React.useState<isClicked>(false);
@@ -23,28 +20,19 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('ta aqui 1');
     setIsClicked(true);
     event.preventDefault();
     const body: body = {
       user_name: username,
       password: password
     };
-    await Axios.post('http://localhost:5000/user/register', body, { withCredentials: true })
+    const { data }: any = await Axios.post('http://localhost:5000/user/register', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });
-    console.log('ta aqui 2');
-    const { data }: any = await Axios.post('http://localhost:5000/user/login', body, { withCredentials: true })
-      .catch((err) => {
-        setMessage(err.response.data.message);
-      });
-    console.log('ta aqui', data);
-    if (data) {
-      setUser(data.hasUser);
-      setAccount(data.account);
-      localStorage.setItem('accessToken', data.accessToken);
-      navigate('/home');
+      console.log(data);
+    if (data.user && data.account) {
+      navigate('/login');
     }
   };
 
@@ -52,6 +40,12 @@ function LoginForm() {
     <div
       className="login-form-container"
     >
+      <button
+        className="go-back-button"
+        onClick={() => navigate('/')}
+      >
+        start
+      </button>
       <form
         className="login-form"
       >

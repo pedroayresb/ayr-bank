@@ -35,6 +35,19 @@
   height: fit-content;
 }
 
+.go-back-button {
+  border-radius: 15px;
+  background-color: #1c1c1c;
+  border-color: #1c1c1c;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  margin: 90px;
+  width: fit-content;
+}
+
 .register-form-checked-container {
   display: flex;
   justify-content: center;

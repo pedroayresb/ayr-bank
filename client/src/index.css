@@ -5,4 +5,5 @@ body {
   background-image: url('./icons/backgroung.jpg');
   color: white;
   font-family: "News Gothic";
+  background-size: contain;
 }
