@@ -4,6 +4,6 @@ cd ..
 cd server
 npm install
 cd ..
-docker compose build
-docker compose up
+docker-compose build
+docker-compose up
 
