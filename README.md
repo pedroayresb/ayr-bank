@@ -11,7 +11,7 @@ O projeto é um aplicativo de transferência de dinheiro entre dois usuários. V
 <details>
   <summary><strong>Sobre o projeto</strong></summary>
 
-O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React.
+O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React. Nao tenho muita experiencia com a implementacao de todas em conjunto, entao algumas funcoes podem nao ter sido executadas da maneira correta.
 
   <br />
 </details>
@@ -19,10 +19,13 @@ O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Post
 <details>
   <summary><strong>Para rodar o projeto</strong></summary>
 
-Com o docker instalado, na pasta inicial do projeto, execute o `docker compose up`. Tenha certeza de que as portas `3050`, `5000` e `5042` estejam disponíveis para execução. 
-Para rodar o banco de dados, execute `docker exec -it ng-project-sqlize-api-1 bash`, `cd app` e `USERNAME=postgres PASSWORD=postgres_password HOST=postgres DATABASE=ng-project npm run dev` e a database deve ser iniciada normalmente.
+No repositorio do projeto, o arquivo `Start.sh` executa todos os comandos necessarios para visualização do projeto.
 
-Para rodar o front end, entre no `localhost:3050` depois de iniciar o banco de dados e tudo deve estar rodando corretamente
+<summary> Linux </summary>
+Para executa-lo, abra o terminal, execute o comando `chmod +x ./Start.sh` e entao `./Start.sh`, e todos os comandos devem ser executados da forma correta. Certifique-se de que as portas `3000`, `3002`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
+
+<summary> Windows </summary>
+Execute o script Start.  Certifique-se de que as portas `3000`, `3002`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
 
 
   <br />
