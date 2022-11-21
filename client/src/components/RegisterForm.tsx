@@ -27,11 +27,11 @@ function LoginForm() {
       user_name: username,
       password: password
     };
-    await Axios.post('http://127.0.0.1:5000/user/register', body, { withCredentials: true })
+    await Axios.post('/api/user/register', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });
-    const { data }: any = await Axios.post('http://127.0.0.1:5000/user/login', body, { withCredentials: true })
+    const { data }: any = await Axios.post('/api:5000/user/login', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });

@@ -24,12 +24,12 @@ function HistoryCard(props: TransactionModel) {
 
   React.useEffect(() => {
     const getCreditedAccountName = async () => {
-      const { data }: any = await Axios.get(`http://localhost:5000/user/${creditedAccount}`)
+      const { data }: any = await Axios.get(`/api/user/${creditedAccount}`)
         .catch((err: Error) => console.log(err)); 
       setCreditedAccountName(data.user.user_name);
     };
     const getDebitedAccountName = async () => {
-      const { data }: any = await Axios.get(`http://localhost:5000/user/${debitedAccount}`)
+      const { data }: any = await Axios.get(`/api/user/${debitedAccount}`)
         .catch((err: Error) => console.log(err)); 
         setDebitedAccountName(data.user.user_name);
     };

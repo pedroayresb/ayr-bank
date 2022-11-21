@@ -34,7 +34,7 @@ function TransferForm() {
       amount: amount,
       accessToken: cookie
     };
-    const { data }: any = await Axios.put('http://localhost:5000/transaction/transfer', body, { withCredentials: true })
+    const { data }: any = await Axios.put('/api/transaction/transfer', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });

@@ -52,17 +52,17 @@ export const NgContext = React.createContext( {} as NgContextProps );
 
 const NgProvider = ({ children }: AppProps) => {
   const [user, setUser] = React.useState<UserModel>({
-    id: 0,
-    user_name: '',
-    password: '',
     account_id: 0,
     createdAt: new Date(),
+    id: 0,
+    password: '',
     updatedAt: new Date(),
+    user_name: '',
   });  
   const [account, setAccount] = React.useState<AccountModel>({
-    id: 0,
     balance: 0,
     createdAt: new Date(),
+    id: 0,
     updatedAt: new Date(),
   });
   const [showHistory, setShowHistory] = React.useState<showHistory>(false);

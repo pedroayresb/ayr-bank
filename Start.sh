@@ -1,9 +1,9 @@
 cd client
-npm i
+npm install
 cd ..
 cd server
-npm i
+npm install
 cd ..
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 

@@ -1,16 +1,16 @@
 version: "3"
 services:
   postgres:
+    container_name: postgres
     image: "postgres:latest"
     environment:
-      - POSTGRES_USER=pedro
-      - POSTGRES_HOST=localhost
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres_password
       - POSTGRES_DB=ng-project
-      - POSTGRES_PORT=5432
     ports:
-      - "5432:5432"
+      - "3002:5432"
   nginx:
+    container_name: nginx
     depends_on:
       - api
       - client
@@ -21,6 +21,7 @@ services:
     ports:
       - "3050:80"
   api:
+    container_name: api
     image: node:latest
     build:
       context: ./server
@@ -28,8 +29,8 @@ services:
     environment:
       - EXTERNAL_PORT=5000
       - DATABASE=ng-project,
-      - USERNAME=pedro,
-      - HOST=127.0.0.1,
+      - USERNAME=postgres,
+      - HOST=postgres,
       - PASSWORD=postgres_password,
       - POSTGRES_PORT=5432
     volumes:
@@ -39,7 +40,10 @@ services:
       - postgres
     ports:
       - "5000:5000"
+    links:
+      - postgres
   client:
+    container_name: client
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
@@ -49,5 +53,5 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-volumes:
-  nps_data: {}
+    links:
+      - api
