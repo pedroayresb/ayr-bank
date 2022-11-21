@@ -24,7 +24,7 @@ function TransferHistory() {
 
   React.useEffect(() => {
     const getHistory = async () => {
-      const cookie: string = document.cookie.split('=')[1];
+      const cookie: string = localStorage.getItem('accessToken')!;
       const body: body = {
         user_name: user.user_name,
         accessToken: cookie,

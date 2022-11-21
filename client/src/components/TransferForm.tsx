@@ -27,7 +27,7 @@ function TransferForm() {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
     const body: body = {
       user_name: user.user_name,
       reciever_name: recipient,

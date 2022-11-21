@@ -22,7 +22,7 @@ interface Transactions {
 function FilterHistoryButtons() {
   const { user, setHistory } = React.useContext(NgContext);
   const sendFilter = async () => {
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
     const body: body = {
       user_name: user.user_name,
       accessToken: cookie,
@@ -45,7 +45,7 @@ function FilterHistoryButtons() {
   }
 
   const receiveFilter = async () => {
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
     const body: body = {
       user_name: user.user_name,
       accessToken: cookie,
@@ -68,7 +68,7 @@ function FilterHistoryButtons() {
   }
 
   const allFilter = async () => {
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
     const body: body = {
       user_name: user.user_name,
       accessToken: cookie,
@@ -93,7 +93,7 @@ function FilterHistoryButtons() {
   const filterByDate = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const date: Date = new Date(e.target.value);
     date.setDate(date.getDate() + 1);
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
     const body: body = {
       user_name: user.user_name,
       accessToken: cookie,
