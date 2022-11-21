@@ -29,7 +29,7 @@ function TransferHistory() {
         user_name: user.user_name,
         accessToken: cookie,
       };
-      const { data }: any = await Axios.post(`/api/transaction/history`, body, { withCredentials: true })
+      const { data }: any = await Axios.post(`http://localhost:5000/transaction/history`, body, { withCredentials: true })
         .catch((err: Error) => console.log(err));
       const orderedDateTime: Transactions[] = data.transactions.sort((a:Transactions, b:Transactions) => {
         const dateA: any = new Date(a.createdAt);

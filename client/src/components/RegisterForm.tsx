@@ -1,7 +1,8 @@
 import * as React from 'react';
+import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { NgContext } from '../context/NgContext';
-import Axios from 'axios';
+import taskApi from '../utils/fetch';
 import '../styles/LoginForm.css';
 
 type input = string;
@@ -21,24 +22,28 @@ function LoginForm() {
   const [isClicked, setIsClicked] = React.useState<isClicked>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('ta aqui 1');
     setIsClicked(true);
+    event.preventDefault();
     const body: body = {
       user_name: username,
       password: password
     };
-    await Axios.post('/api/user/register', body, { withCredentials: true })
+    await Axios.post('http://localhost:5000/user/register', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });
-    const { data }: any = await Axios.post('/api:5000/user/login', body, { withCredentials: true })
+    console.log('ta aqui 2');
+    const { data }: any = await Axios.post('http://localhost:5000/user/login', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });
+    console.log('ta aqui', data);
     if (data) {
       setUser(data.hasUser);
       setAccount(data.account);
-      document.cookie = `accessToken=${data.accessToken}`;
+      localStorage.setItem('accessToken', data.accessToken);
       navigate('/home');
     }
   };
@@ -74,10 +79,11 @@ function LoginForm() {
             Do you agre with the Terms and Conditions?
           </label>
         </div>
-        <button 
+        <button
+          type="button"
           className="login-form-button"
           disabled={ !checked }
-          onClick={handleSubmit}
+          onClick={ (event) => handleSubmit(event)}
         >
           Sign Up
         </button>

@@ -21,13 +21,14 @@ function LoginForm() {
   const [isClicked, setIsClicked] = React.useState<isClicked>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setIsClicked(true);
     const body: body = {
       user_name: username,
       password: password
     };
-    const { data }:any = await Axios.post('/api/user/login', body, { withCredentials: true })
+    const { data }:any = await Axios.post('http://localhost:5000/user/login', body, { withCredentials: true })
       .catch((err) => {
         setMessage(err.response.data.message);
       });
@@ -36,7 +37,7 @@ function LoginForm() {
       setAccount(data.account);
       const date: Date = new Date();
       date.setDate(date.getDate() + 1)
-      document.cookie = `accessToken=${data.accessToken}; expires=${date};`;
+      localStorage.setItem('accessToken', data.accessToken);
       navigate('/home');
     }
   };
@@ -65,9 +66,10 @@ function LoginForm() {
           onChange={ ({ target }) => setPassword(target.value) }
         />
         <div className="login-form-button-container">
-          <button 
+          <button
+            type="button"
             className="login-form-button"
-            onClick={handleSubmit}
+            onClick={(event) => handleSubmit(event)}
           >
             Login
           </button>

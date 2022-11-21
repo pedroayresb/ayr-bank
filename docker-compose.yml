@@ -9,17 +9,6 @@ services:
       - POSTGRES_DB=ng-project
     ports:
       - "3002:5432"
-  nginx:
-    container_name: nginx
-    depends_on:
-      - api
-      - client
-    restart: always
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3050:80"
   api:
     container_name: api
     image: node:latest
@@ -55,3 +44,5 @@ services:
       - ./client:/app
     links:
       - api
+    ports:
+      - "3000:3000"

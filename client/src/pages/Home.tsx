@@ -18,12 +18,13 @@ function Home() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const cookie: string = document.cookie.split('=')[1];
+    const cookie: string = localStorage.getItem('accessToken')!;
+    console.log(cookie);
     const body: body = {
       accessToken: cookie
     };
     const getUserName = async () => {
-      const { data }: any = await Axios.post('http://127.0.0.1:5000/user/autologin', body, { withCredentials: true })
+      const { data }: any = await Axios.post('http://localhost:5000/user/autologin', body, { withCredentials: true })
         .catch((err) => {
           console.log(err);
         });

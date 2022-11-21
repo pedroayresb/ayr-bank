@@ -11,7 +11,7 @@ function HeaderButtons() {
         type="button"
         className="header-button"
         onClick={() => {
-          document.cookie = 'accessToken= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+          localStorage.removeItem('accessToken');
           navigate('/');
         }}
       >
