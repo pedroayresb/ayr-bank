@@ -1,0 +1,8 @@
+FROM node:14.14.0-alpine
+EXPOSE 5432
+WORKDIR /app
+COPY ./package.json .
+RUN npm install
+RUN npm install nodemon --save-dev
+COPY . .
+CMD ["npm", "run", "dev"]

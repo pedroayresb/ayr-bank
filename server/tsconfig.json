@@ -1,0 +1,9 @@
+
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "target": "es5",
+    "allowJs": true,
+  },
+  "include": ["./app"],
+}
