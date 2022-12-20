@@ -96,13 +96,12 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback<T = Jwt | JwtPayload | string> = (
-    error: VerifyErrors | null,
+    err: VerifyErrors | null,
     decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
-    error: Error | null,
-    encoded: string | undefined,
+    err: Error | null, encoded: string | undefined
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
@@ -146,8 +145,8 @@ export type Algorithm =
     "none";
 
 export type SigningKeyCallback = (
-    error: Error | null,
-    signingKey?: Secret
+    err: any,
+    signingKey?: Secret,
 ) => void;
 
 export type GetPublicKeyOrSecret = (

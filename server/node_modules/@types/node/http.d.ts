@@ -13,7 +13,7 @@
  * { 'content-length': '123',
  *   'content-type': 'text/plain',
  *   'connection': 'keep-alive',
- *   'host': 'example.com',
+ *   'host': 'mysite.com',
  *   'accept': '*' }
  * ```
  *
@@ -34,10 +34,10 @@
  *   'content-LENGTH', '123',
  *   'content-type', 'text/plain',
  *   'CONNECTION', 'keep-alive',
- *   'Host', 'example.com',
+ *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
@@ -241,12 +241,14 @@ declare module 'http' {
          * Limit the amount of time the parser will wait to receive the complete HTTP
          * headers.
          *
-         * If the timeout expires, the server responds with status 408 without
-         * forwarding the request to the request listener and then closes the connection.
-         *
-         * It must be set to a non-zero value (e.g. 120 seconds) to protect against
-         * potential Denial-of-Service attacks in case the server is deployed without a
-         * reverse proxy in front.
+         * In case of inactivity, the rules defined in `server.timeout` apply. However,
+         * that inactivity based timeout would still allow the connection to be kept open
+         * if the headers are being sent very slowly (by default, up to a byte per 2
+         * minutes). In order to prevent this, whenever header data arrives an additional
+         * check is made that more than `server.headersTimeout` milliseconds has not
+         * passed since the connection was established. If the check fails, a `'timeout'`event is emitted on the server object, and (by default) the socket is destroyed.
+         * See `server.timeout` for more information on how timeout behavior can be
+         * customized.
          * @since v11.3.0, v10.14.0
          */
         headersTimeout: number;
@@ -279,16 +281,6 @@ declare module 'http' {
          * @since v14.11.0
          */
         requestTimeout: number;
-        /**
-         * Closes all connections connected to this server.
-         * @since v18.2.0
-         */
-        closeAllConnections(): void;
-        /**
-         * Closes all connections connected to this server which are not sending a request or waiting for a response.
-         * @since v18.2.0
-         */
-        closeIdleConnections(): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'connection', listener: (socket: Socket) => void): this;
@@ -415,7 +407,7 @@ declare module 'http' {
         /**
          * Aliases of `outgoingMessage.socket`
          * @since v0.3.0
-         * @deprecated Since v15.12.0,v14.17.1 - Use `socket` instead.
+         * @deprecated Since v15.12.0 - Use `socket` instead.
          */
         readonly connection: Socket | null;
         /**
@@ -466,13 +458,13 @@ declare module 'http' {
          * const headers = outgoingMessage.getHeaders();
          * // headers === { foo: 'bar', 'set-cookie': ['foo=bar', 'bar=baz'] }
          * ```
-         * @since v7.7.0
+         * @since v8.0.0
          */
         getHeaders(): OutgoingHttpHeaders;
         /**
          * Returns an array of names of headers of the outgoing outgoingMessage. All
          * names are lowercase.
-         * @since v7.7.0
+         * @since v8.0.0
          */
         getHeaderNames(): string[];
         /**
@@ -482,7 +474,7 @@ declare module 'http' {
          * ```js
          * const hasContentType = outgoingMessage.hasHeader('content-type');
          * ```
-         * @since v7.7.0
+         * @since v8.0.0
          */
         hasHeader(name: string): boolean;
         /**
@@ -492,7 +484,6 @@ declare module 'http' {
          * outgoingMessage.removeHeader('Content-Encoding');
          * ```
          * @since v0.4.0
-         * @param name Header name
          */
         removeHeader(name: string): void;
         /**
@@ -570,46 +561,11 @@ declare module 'http' {
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
         /**
-         * Sends an HTTP/1.1 100 Continue message to the client, indicating that
+         * Sends a HTTP/1.1 100 Continue message to the client, indicating that
          * the request body should be sent. See the `'checkContinue'` event on`Server`.
          * @since v0.3.0
          */
         writeContinue(callback?: () => void): void;
-        /**
-         * Sends an HTTP/1.1 103 Early Hints message to the client with a Link header,
-         * indicating that the user agent can preload/preconnect the linked resources.
-         * The `hints` is an object containing the values of headers to be sent with
-         * early hints message. The optional `callback` argument will be called when
-         * the response message has been written.
-         *
-         * Example:
-         *
-         * ```js
-         * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
-         * response.writeEarlyHints({
-         *   'link': earlyHintsLink,
-         * });
-         *
-         * const earlyHintsLinks = [
-         *   '</styles.css>; rel=preload; as=style',
-         *   '</scripts.js>; rel=preload; as=script',
-         * ];
-         * response.writeEarlyHints({
-         *   'link': earlyHintsLinks,
-         *   'x-trace-id': 'id for diagnostics'
-         * });
-         *
-         * const earlyHintsCallback = () => console.log('early hints message sent');
-         * response.writeEarlyHints({
-         *   'link': earlyHintsLinks
-         * }, earlyHintsCallback);
-         * ```
-         *
-         * @since v18.11.0
-         * @param hints An object containing the values of headers
-         * @param callback Will be called when the response message has been written
-         */
-        writeEarlyHints(hints: Record<string, string | string[]>, callback?: () => void): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
@@ -674,7 +630,7 @@ declare module 'http' {
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
-         * Sends an HTTP/1.1 102 Processing message to the client, indicating that
+         * Sends a HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.
          * @since v10.0.0
          */
@@ -722,7 +678,6 @@ declare module 'http' {
          * The `request.aborted` property will be `true` if the request has
          * been aborted.
          * @since v0.11.14
-         * @deprecated Since v17.0.0,v16.12.0 - Check `destroyed` instead.
          */
         aborted: boolean;
         /**
@@ -736,58 +691,13 @@ declare module 'http' {
          */
         protocol: string;
         /**
-         * When sending request through a keep-alive enabled agent, the underlying socket
-         * might be reused. But if server closes connection at unfortunate time, client
-         * may run into a 'ECONNRESET' error.
-         *
-         * ```js
-         * const http = require('http');
-         *
-         * // Server has a 5 seconds keep-alive timeout by default
-         * http
-         *   .createServer((req, res) => {
-         *     res.write('hello\n');
-         *     res.end();
-         *   })
-         *   .listen(3000);
-         *
-         * setInterval(() => {
-         *   // Adapting a keep-alive agent
-         *   http.get('http://localhost:3000', { agent }, (res) => {
-         *     res.on('data', (data) => {
-         *       // Do nothing
-         *     });
-         *   });
-         * }, 5000); // Sending request on 5s interval so it's easy to hit idle timeout
-         * ```
-         *
-         * By marking a request whether it reused socket or not, we can do
-         * automatic error retry base on it.
-         *
-         * ```js
-         * const http = require('http');
-         * const agent = new http.Agent({ keepAlive: true });
-         *
-         * function retriableRequest() {
-         *   const req = http
-         *     .get('http://localhost:3000', { agent }, (res) => {
-         *       // ...
-         *     })
-         *     .on('error', (err) => {
-         *       // Check if retry is needed
-         *       if (req.reusedSocket &#x26;&#x26; err.code === 'ECONNRESET') {
-         *         retriableRequest();
-         *       }
-         *     });
-         * }
-         *
-         * retriableRequest();
-         * ```
+         * Whether the request is send through a reused socket.
          * @since v13.0.0, v12.16.0
          */
         reusedSocket: boolean;
         /**
          * Limits maximum response headers count. If set to 0, no limit will be applied.
+         * @default 2000
          */
         maxHeadersCount: number;
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
@@ -837,12 +747,9 @@ declare module 'http' {
          * const headerNames = request.getRawHeaderNames();
          * // headerNames === ['Foo', 'Set-Cookie']
          * ```
-         * @since v15.13.0, v14.17.0
+         * @since v15.13.0
          */
         getRawHeaderNames(): string[];
-        /**
-         * @deprecated
-         */
         addListener(event: 'abort', listener: () => void): this;
         addListener(
             event: 'connect',
@@ -864,9 +771,6 @@ declare module 'http' {
         addListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
         addListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
         on(event: 'abort', listener: () => void): this;
         on(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         on(event: 'continue', listener: () => void): this;
@@ -882,9 +786,6 @@ declare module 'http' {
         on(event: 'pipe', listener: (src: stream.Readable) => void): this;
         on(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
         once(event: 'abort', listener: () => void): this;
         once(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
         once(event: 'continue', listener: () => void): this;
@@ -900,9 +801,6 @@ declare module 'http' {
         once(event: 'pipe', listener: (src: stream.Readable) => void): this;
         once(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
         prependListener(event: 'abort', listener: () => void): this;
         prependListener(
             event: 'connect',
@@ -924,9 +822,6 @@ declare module 'http' {
         prependListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
         prependListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        /**
-         * @deprecated
-         */
         prependOnceListener(event: 'abort', listener: () => void): this;
         prependOnceListener(
             event: 'connect',
@@ -965,7 +860,6 @@ declare module 'http' {
          * The `message.aborted` property will be `true` if the request has
          * been aborted.
          * @since v10.1.0
-         * @deprecated Since v17.0.0,v16.12.0 - Check `message.destroyed` from <a href="stream.html#class-streamreadable" class="type">stream.Readable</a>.
          */
         aborted: boolean;
         /**
@@ -1017,7 +911,7 @@ declare module 'http' {
          *
          * This property is guaranteed to be an instance of the `net.Socket` class,
          * a subclass of `stream.Duplex`, unless the user specified a socket
-         * type other than `net.Socket` or internally nulled.
+         * type other than `net.Socket`.
          * @since v0.3.0
          */
         socket: Socket;
@@ -1032,7 +926,7 @@ declare module 'http' {
          * // { 'user-agent': 'curl/7.22.0',
          * //   host: '127.0.0.1:8000',
          * //   accept: '*' }
-         * console.log(request.getHeaders());
+         * console.log(request.headers);
          * ```
          *
          * Duplicates in raw headers are handled in the following ways, depending on the
@@ -1108,14 +1002,14 @@ declare module 'http' {
          * To parse the URL into its parts:
          *
          * ```js
-         * new URL(request.url, `http://${request.getHeaders().host}`);
+         * new URL(request.url, `http://${request.headers.host}`);
          * ```
          *
-         * When `request.url` is `'/status?name=ryan'` and`request.getHeaders().host` is `'localhost:3000'`:
+         * When `request.url` is `'/status?name=ryan'` and`request.headers.host` is `'localhost:3000'`:
          *
          * ```console
          * $ node
-         * > new URL(request.url, `http://${request.getHeaders().host}`)
+         * > new URL(request.url, `http://${request.headers.host}`)
          * URL {
          *   href: 'http://localhost:3000/status?name=ryan',
          *   origin: 'http://localhost:3000',
@@ -1315,16 +1209,11 @@ declare module 'http' {
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
-    >(
-        options: ServerOptions<Request, Response>,
-        requestListener?: RequestListener<Request, Response>,
-    ): Server<Request, Response>;
+    >(options: ServerOptions, requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}
     /**
-     * `options` in `socket.connect()` are also supported.
-     *
      * Node.js maintains several connections per server to make HTTP requests.
      * This function allows one to transparently issue requests.
      *
