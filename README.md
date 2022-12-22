@@ -1,4 +1,4 @@
-# Bem Vindo ao repositório do Projeto NG-Project!
+# Bem Vindo ao repositório do Projeto Ayr Bank!
 
 Este projeto foi desenvolvido por [Pedro Ayres](https://www.linkedin.com/in/pedroayresb/). 
 
