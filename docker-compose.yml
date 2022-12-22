@@ -1,0 +1,35 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: ayr-bank-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_DB=postgres
+    ports:
+      - "3002:5432"
+  api:
+    container_name: ayr-bank-api
+    image: node:latest
+    restart: always
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    environment:
+      - EXTERNAL_PORT=5000
+      - DATABASE=postgres,
+      - USERNAME=postgres,
+      - HOST=postgres,
+      - PASSWORD=postgres_password,
+      - POSTGRES_PORT=5432
+      - JWT_SECRET=secret
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    links:
+      - postgres

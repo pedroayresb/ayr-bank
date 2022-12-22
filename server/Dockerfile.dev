@@ -1,0 +1,7 @@
+FROM node:14.14.0-alpine
+EXPOSE 5432
+WORKDIR /app
+COPY . .
+COPY ./package.json .
+RUN npm install
+CMD ["npm", "run", "dev"]
