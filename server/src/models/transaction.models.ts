@@ -45,4 +45,7 @@ const Transactions = sequelize.define<TransactionsInstance>('Transactions', {
   },
 });
 
+Transactions.belongsToMany(Account, { through: 'Transactions', foreignKey: 'debitedAccount' });
+Transactions.belongsToMany(Account, { through: 'Transactions', foreignKey: 'creditedAccount' });
+
 export default Transactions;
