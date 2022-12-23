@@ -1,28 +1,22 @@
 import React from 'react';
-import { Routes } from 'react-router';
-import { Route, useLocation } from 'react-router-dom';
-import NgProvider from './context/NgContext';
-import Start from './pages/Start';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Transfer from './pages/Transfer';
-import History from './pages/History';
-import './index.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import AyrProvider from './context/AyrProvider';
+import './App.css';
 
 function App() {
-  const location = useLocation();
   return (
-    <NgProvider>
-      <Routes location={ location } key={ location.pathname }>
-        <Route path="/" element={<Start />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/transfer" element={<Transfer />} />
-        <Route path="/history" element={<History />} />
-      </Routes>
-    </NgProvider>
+    <AyrProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={ <Homepage /> } />
+          <Route path="/login" element={ <LoginPage /> } />
+          <Route path="/register" element={ <RegisterPage /> } />
+        </Routes>
+      </BrowserRouter>
+    </AyrProvider>
   );
 }
 
