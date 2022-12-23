@@ -4,9 +4,11 @@ import { Sequelize } from 'sequelize'
 
 dotenv.config();
 
+const numberedPort = Number(process.env.POSTGRES_PORT);
+
 const host = process.env.HOST || 'localhost';
-const port = 3002;
-const username = 'postgres';
+const port = numberedPort || 5432;
+const username = process.env.USERNAME || 'postgres';
 const password = process.env.PASSWORD || 'postgres_password';
 const database = process.env.DATABASE || 'postgres';
 
