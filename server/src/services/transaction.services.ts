@@ -18,40 +18,25 @@ const createTransaction = async (
       id: to,
     },
   });
-  if (!sender) {
-    throw new Error('Sender not found');
-  }
-  if (!receiver) {
-    throw new Error('Receiver not found');
-  }
   const senderAccount = await AccountModel.findOne({
     where: {
-      id: sender.accountId,
+      id: sender!.accountId,
     },
   });
   const receiverAccount = await AccountModel.findOne({
     where: {
-      id: receiver.accountId,
+      id: receiver!.accountId,
     },
   });
-  if (!senderAccount) {
-    throw new Error('Sender account not found');
-  }
-  if (!receiverAccount) {
-    throw new Error('Receiver account not found');
-  }
-  if (senderAccount.balance < amount) {
-    throw new Error('Insufficient balance');
-  }
-  const senderBalance = senderAccount.balance - amount;
-  const receiverBalance = receiverAccount.balance + amount;
+  const senderBalance = senderAccount!.balance - amount;
+  const receiverBalance = receiverAccount!.balance + amount;
   await AccountModel.update(
     {
       balance: senderBalance,
     },
     {
       where: {
-        id: sender.accountId,
+        id: sender!.accountId,
       },
     },
   );
@@ -61,13 +46,13 @@ const createTransaction = async (
     },
     {
       where: {
-        id: receiver.accountId,
+        id: receiver!.accountId,
       },
     },
   );
   const transaction = await TransactionModel.create({
-    debitedAccount: sender.id,
-    creditedAccount: receiver.id,
+    debitedAccount: sender!.id,
+    creditedAccount: receiver!.id,
     value: amount,
     createdAt: new Date(),
   });

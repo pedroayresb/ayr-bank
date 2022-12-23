@@ -3,12 +3,13 @@ import { login, register, getUsers, getProfile, getUser } from '../controllers/u
 import { Router } from 'express';
 
 import validateToken from '../middlewares/validateToken';
+import { validateUsername, validateRegister, validatePassword } from '../middlewares/users.middlewares';
 
 const router = Router();
 
 router
-  .post('/register', register)
-  .post('/login', login)
+  .post('/register', validateUsername, validateRegister, validatePassword, register)
+  .post('/login', validateUsername, validatePassword, login)
   .get('/', validateToken, getUsers)
   .get('/profile', validateToken, getProfile)
   .get('/:id', validateToken, getUser);
