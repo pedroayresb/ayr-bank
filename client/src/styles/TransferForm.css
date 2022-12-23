@@ -1,0 +1,39 @@
+.transfer-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #1c1c1c;
+}
+
+.transfer-input {
+  border-radius: 15px;
+  background-color: #1c1c1c;
+  border-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  font-weight: 100;
+  font-size: 13px;
+  width: 30%;
+}
+
+.transfer-form-label {
+  color: white;
+  font-weight: 100;
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.transfer-button {
+  border-radius: 15px;
+  background-color: #1c1c1c;
+  border-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  font-weight: 100;
+  font-size: 13px;
+}

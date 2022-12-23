@@ -1,0 +1,31 @@
+.transfer-history {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #1c1c1c;
+  height: 250px;
+  border-radius: 30px;
+}
+
+.history-table-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.history-table {
+  width: 100%;
+  padding: 20px;
+  font-size: 14px;
+
+}
+
+.history-table-head {
+  text-align: center;
+  padding: 8px;
+}
+
+.history-table-line {
+  height: 45px;
+}

@@ -1,0 +1,14 @@
+.header-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 99999px;
+  background-color: #1c1c1c;
+  border-color: #1c1c1c;
+}
+
+.header-button-icon {
+  width: 20px;
+}
