@@ -7,8 +7,8 @@ const validateUsername = (req: Request, res: Response, next: NextFunction) => {
   if (!name) {
     return res.status(400).json({ error: 'Username is required' });
   };
-  if (name.length < 5) {
-    return res.status(400).json({ error: 'Username must be at least 5 characters long' });
+  if (name.length < 3) {
+    return res.status(400).json({ error: 'Username must be at least 3 characters long' });
   };
   if(typeof name !== 'string') {
     return res.status(400).json({ error: 'Username must be a string' });
@@ -32,8 +32,8 @@ const validatePassword = (req: Request, res: Response, next: NextFunction) => {
   if (!password) {
     return res.status(400).json({ error: 'Password is required' });
   };
-  if (password.length < 5) {
-    return res.status(400).json({ error: 'Password must be at least 5 characters long' });
+  if (password.length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long' });
   };
   if(typeof password !== 'string') {
     return res.status(400).json({ error: 'Password must be a string' });

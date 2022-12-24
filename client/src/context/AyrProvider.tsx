@@ -15,15 +15,12 @@ const apiPort: string = process.env.REACT_APP_API_PORT || '5000';
 
 const AyrProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
-  const [token, setToken] = useState('');
   const [url, setUrl] = useState(`${apiUrl}:${apiPort}`);
   const [language, setLanguage] = useState('en');
 
   const value = {
     user,
     setUser,
-    token,
-    setToken,
     url,
     setUrl,
     language,

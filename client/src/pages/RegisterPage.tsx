@@ -1,9 +1,12 @@
 import React from "react";
+import RegisterForm from "../components/RegisterForm";
+import FlagContainer from "../components/FlagContainer";
 
 function RegisterPage() {
   return (
     <div>
-      <h1>RegisterPage</h1>
+      <FlagContainer />
+      <RegisterForm />
     </div>
   );
 }

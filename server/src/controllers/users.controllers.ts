@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { registerUser, loginUser, getAllUsers, getProfileByName, getUserById } from '../services/users.services';
+import { registerUser, loginUser, getAllUsers, getUserById } from '../services/users.services';
 
 const register = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
   try {
-    const user = await registerUser(username, password);
+    const user = await registerUser(name, password);
     res.status(201).json(user);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -12,9 +12,9 @@ const register = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { name, password } = req.body;
   try {
-    const user = await loginUser(username, password);
+    const user = await loginUser(name, password);
     res.status(200).json(user);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
@@ -33,8 +33,8 @@ const getUsers = async (req: Request, res: Response) => {
 const getProfile = async (req: Request, res: Response) => {
   const { locals: { user } } = res;
   try {
-    const userByName = await getProfileByName(user.name);
-    res.status(200).json(user);
+    const userByName = await getUserById(user.id);
+    res.status(200).json(userByName);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

@@ -68,7 +68,8 @@ const getUserById = async (id: number) => {
     where: {
       id,
     },
-  });
+    include: AccountModel,
+  },);
   if (!user) {
     throw new Error('User not found');
   }
