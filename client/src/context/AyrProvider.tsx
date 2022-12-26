@@ -13,7 +13,7 @@ const AyrProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
   const [url, setUrl] = useState(`${apiUrl}`);
   const [language, setLanguage] = useState('en');
-  const [history, setHistory]= useState<HistoryInterface[] | null> (null);
+  const [history, setHistory]= useState<HistoryInterface[] | null> ([]);
 
   const value = {
     user,
