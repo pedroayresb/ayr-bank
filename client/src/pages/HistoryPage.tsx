@@ -15,7 +15,7 @@ function HistoryPage() {
   useEffect(() => {
     const getHistory = async () => {
       try {
-        const response = await Axios.get(`http://${url}/transaction/history`, {
+        const response = await Axios.get(`${url}/transaction/history`, {
           headers: {
             Authorization: cookies.token,
           },

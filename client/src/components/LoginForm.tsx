@@ -17,7 +17,7 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { data: { token } } = await Axios.post(`http://${url}/user/login`, {
+      const { data: { token } } = await Axios.post(`${url}/user/login`, {
         name,
         password,
       });

@@ -12,7 +12,7 @@ function HistoryTableFilter() {
 
   const getHistory = async () => {
     try {
-      const response = await axios.get(`http://${url}/transaction/history`, {
+      const response = await axios.get(`${url}/transaction/history`, {
         headers: {
           Authorization: cookies.token,
         },
@@ -25,7 +25,7 @@ function HistoryTableFilter() {
 
   const getSentHistory = async () => {
     try {
-      const response = await axios.get(`http://${url}/transaction/sendhistory`, {
+      const response = await axios.get(`${url}/transaction/sendhistory`, {
         headers: {
           Authorization: cookies.token,
         },
@@ -38,7 +38,7 @@ function HistoryTableFilter() {
 
   const getReceivedHistory = async () => {
     try {
-      const response = await axios.get(`http://${url}/transaction/receivehistory`, {
+      const response = await axios.get(`${url}/transaction/receivehistory`, {
         headers: {
           Authorization: cookies.token,
         },

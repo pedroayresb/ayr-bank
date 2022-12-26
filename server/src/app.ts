@@ -9,13 +9,11 @@ import dbInit from './models/init';
 dbInit();
 
 const app = express();
+const client = 'client' || 'localhost'
 
 app.use(express.json());
 
-app.use(cors({
-  credentials: true, 
-  origin: 'http://localhost:3000',
-}));
+app.use(cors());
 
 app.use('/user', userRouter);
 app.use('/transaction', transactionRouter);

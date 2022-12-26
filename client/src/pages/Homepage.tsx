@@ -16,7 +16,7 @@ function Homepage() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get(`http://${url}/user/profile`, {
+        const response = await axios.get(`${url}/user/profile`, {
           headers: {
             Authorization: cookies.token,
           },

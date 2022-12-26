@@ -8,11 +8,10 @@ interface Props {
 }
 
 const apiUrl: string = process.env.REACT_APP_API_URL || 'localhost';
-const apiPort: string = process.env.REACT_APP_API_PORT || '5000';
 
 const AyrProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
-  const [url, setUrl] = useState(`${apiUrl}:${apiPort}`);
+  const [url, setUrl] = useState(`${apiUrl}`);
   const [language, setLanguage] = useState('en');
   const [history, setHistory]= useState<HistoryInterface[] | null> (null);
 

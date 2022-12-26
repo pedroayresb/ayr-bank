@@ -17,7 +17,7 @@ function TransferForm() {
     event.preventDefault();
     setLoading(true);
     try {
-      await Axios.put(`http://${url}/transaction/transfer`, {
+      await Axios.put(`${url}/transaction/transfer`, {
         amount,
         to: receiver,
       }, {
