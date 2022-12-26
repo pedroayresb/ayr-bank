@@ -13,7 +13,6 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(token, secret);
     res.locals.user = decoded;
-    console.log('decoded', decoded);
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getProfileByName } from '../services/users.services';
+import { getProfileByName, getUserById } from '../services/users.services';
 import Account from '../models/accounts.models';
 
 const hasTo = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,6 +19,7 @@ const hasTo = async (req: Request, res: Response, next: NextFunction) => {
 
 const hasAmount = async (req: Request, res: Response, next: NextFunction) => {
   const { locals: { user } } = res;
+  const dbUser = await getUserById(user.id);
   const { amount } = req.body;
   if (!amount) {
     return res.status(400).json({ error: 'amount is required' });
@@ -26,7 +27,7 @@ const hasAmount = async (req: Request, res: Response, next: NextFunction) => {
   if (typeof amount !== 'number') {
     return res.status(400).json({ error: 'amount must be a number' });
   };
-  const userAccount = await Account.findOne({ where: { id: user.accountId } });
+  const userAccount = await Account.findOne({ where: { id: dbUser.accountId } });
   if (userAccount) {
     if (amount > userAccount.balance) {
       return res.status(400).json({ error: 'Insufficient funds' });

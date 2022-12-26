@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import AyrContext from './AyrContext';
 import PropTypes from 'prop-types';
-import { UserInterface } from '../interfaces/UserInterface';
-
-
+import { UserInterface, AyrContextInterface } from '../interfaces/UserInterface';
+import HistoryInterface from '../interfaces/HistoryInterface';
 interface Props {
   children: React.ReactNode;
 }
 
-
 const apiUrl: string = process.env.REACT_APP_API_URL || 'localhost';
 const apiPort: string = process.env.REACT_APP_API_PORT || '5000';
-
 
 const AyrProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
   const [url, setUrl] = useState(`${apiUrl}:${apiPort}`);
   const [language, setLanguage] = useState('en');
+  const [history, setHistory]= useState<HistoryInterface[] | null> (null);
 
   const value = {
     user,
@@ -25,7 +23,9 @@ const AyrProvider: React.FC<Props> = ({ children }) => {
     setUrl,
     language,
     setLanguage,
-  };
+    history,
+    setHistory,
+  } as AyrContextInterface;
 
 
   return (

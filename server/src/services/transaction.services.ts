@@ -1,6 +1,8 @@
 import AccountModel from '../models/accounts.models';
 import TransactionModel from '../models/transaction.models';
+import { UserWithAccount, TransactionsWithUser } from '../interfaces/users.interfaces';
 import UserModel from '../models/users.models';
+
 import { Op } from 'sequelize';
 
 const createTransaction = async (
@@ -12,24 +14,16 @@ const createTransaction = async (
     where: {
       id: from,
     },
-  });
+    include: AccountModel,
+  }) as UserWithAccount | null;
   const receiver = await UserModel.findOne({
     where: {
       id: to,
     },
-  });
-  const senderAccount = await AccountModel.findOne({
-    where: {
-      id: sender!.accountId,
-    },
-  });
-  const receiverAccount = await AccountModel.findOne({
-    where: {
-      id: receiver!.accountId,
-    },
-  });
-  const senderBalance = senderAccount!.balance - amount;
-  const receiverBalance = receiverAccount!.balance + amount;
+    include: AccountModel,
+  }) as UserWithAccount | null;
+  const senderBalance = sender!.Account!.balance - amount;
+  const receiverBalance = receiver!.Account!.balance + amount;
   await AccountModel.update(
     {
       balance: senderBalance,
@@ -51,21 +45,12 @@ const createTransaction = async (
     },
   );
   const transaction = await TransactionModel.create({
-    debitedAccount: sender!.id,
-    creditedAccount: receiver!.id,
+    debitedAccount: sender!.accountId,
+    creditedAccount: receiver!.accountId,
     value: amount,
-    createdAt: new Date(),
   });
-  return transaction;
-};
 
-const getAllTransactions = async (id: number) => {
-  const transactions = await TransactionModel.findAll({
-    where: {
-      [Op.or]: [{ debitedAccount: id }, { creditedAccount: id }],
-    },
-  });
-  return transactions;
+  return transaction;
 };
 
 const getCreditedTransactions = async (id: number) => {
@@ -73,6 +58,15 @@ const getCreditedTransactions = async (id: number) => {
     where: {
       creditedAccount: id,
     },
+    include : [
+      {
+        model: UserModel,
+        where: {
+          accountId: id,
+        },
+        attributes: ['name'],
+      }
+    ]
   });
   return transactions;
 };
@@ -82,6 +76,40 @@ const getDebitedTransactions = async (id: number) => {
     where: {
       debitedAccount: id,
     },
+    include : [
+      {
+        model: UserModel,
+        where: {
+          accountId: id,
+        },
+        attributes: ['name'],
+      }
+    ]
+  });
+  return transactions;
+};
+
+const getAllTransactions = async (id: number) => {
+  const transactions = await TransactionModel.findAll({
+    where: {
+      [Op.or]: [
+        {
+          debitedAccount: id,
+        },
+        {
+          creditedAccount: id,
+        },
+      ],
+    },
+    include : [
+      {
+        model: UserModel,
+        where: {
+          accountId: id,
+        },
+        attributes: ['name'],
+      }
+    ]
   });
   return transactions;
 };

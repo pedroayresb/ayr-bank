@@ -1,17 +1,17 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/config';
 import Account from './accounts.models';
+import User from './users.models';
 
 interface TransactionsAttributes {
   id: number;
   debitedAccount: number;
   creditedAccount: number;
   value: number;
-  createdAt: Date;
 }
 
 interface TransactionsCreationAttributes extends Optional<TransactionsAttributes, 'id'> {}
-interface TransactionsInstance extends Model<TransactionsAttributes, TransactionsCreationAttributes>, TransactionsAttributes {}
+export interface TransactionsInstance extends Model<TransactionsAttributes, TransactionsCreationAttributes>, TransactionsAttributes {}
 
 const Transactions = sequelize.define<TransactionsInstance>('Transactions', {
   id: {
@@ -39,13 +39,9 @@ const Transactions = sequelize.define<TransactionsInstance>('Transactions', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
 });
 
-Transactions.belongsToMany(Account, { through: 'Transactions', foreignKey: 'debitedAccount' });
-Transactions.belongsToMany(Account, { through: 'Transactions', foreignKey: 'creditedAccount' });
+Transactions.belongsTo(User, { foreignKey: 'debitedAccount' });
+Transactions.belongsTo(User, { foreignKey: 'creditedAccount' });
 
 export default Transactions;

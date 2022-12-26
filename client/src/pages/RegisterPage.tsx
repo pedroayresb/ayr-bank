@@ -1,11 +1,11 @@
 import React from "react";
 import RegisterForm from "../components/RegisterForm";
-import FlagContainer from "../components/FlagContainer";
+import GoBackButton from "../components/GoBackButton";
 
 function RegisterPage() {
   return (
     <div>
-      <FlagContainer />
+      <GoBackButton />
       <RegisterForm />
     </div>
   );

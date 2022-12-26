@@ -1,9 +1,12 @@
 import React from 'react';
+import GoBackButton from '../components/GoBackButton';
+import LoginForm from '../components/LoginForm';
 
 function LoginPage() {
   return (
     <div>
-      <h1>LoginPage</h1>
+      <GoBackButton />
+      <LoginForm />
     </div>
   );
 }

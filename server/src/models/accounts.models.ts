@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/config';
 import Transactions from './transaction.models';
+import User from './users.models';
 
 interface AccountAttributes {
   id: number;
@@ -21,5 +22,6 @@ const Account = sequelize.define<AccountInstance>('Account', {
     allowNull: false,
   },
 });
+
 
 export default Account;

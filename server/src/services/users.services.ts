@@ -29,7 +29,6 @@ const registerUser = async (
 
 const getAllUsers = async () => {
   const users = await UserModel.findAll();
-  console.log(users);
   return users;
 };
 

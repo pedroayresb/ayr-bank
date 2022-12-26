@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/config';
 import Account from './accounts.models';
+import Transactions from './transaction.models';
 
 interface UserAttributes {
   id: number;

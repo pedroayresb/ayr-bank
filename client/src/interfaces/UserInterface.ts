@@ -1,3 +1,5 @@
+import HistoryInterface from './HistoryInterface';
+
 interface AccountInterface {
   id: number;
   balance: number;
@@ -17,4 +19,6 @@ export interface AyrContextInterface {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
   url: string;
   setUrl: React.Dispatch<React.SetStateAction<string>>;
+  history: HistoryInterface[] | null;
+  setHistory: React.Dispatch<React.SetStateAction<HistoryInterface[]| null>>;
 }
