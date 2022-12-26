@@ -19,7 +19,6 @@ O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Post
 <details>
   <summary><strong>Para rodar o projeto</strong></summary>
 
-No repositorio do projeto, o arquivo `Start.sh` executa todos os comandos necessarios para visualização do projeto.
 Para executa-lo, execute o docker compose up, espere os containers abrirem, entre no localhost:3050 e a aplicacao vai estar funcionando.  Certifique-se de que as portas `3000`, `3050`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
 
 
