@@ -20,12 +20,7 @@ O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Post
   <summary><strong>Para rodar o projeto</strong></summary>
 
 No repositorio do projeto, o arquivo `Start.sh` executa todos os comandos necessarios para visualização do projeto.
-
-<summary> Linux </summary>
-Para executa-lo, abra o terminal, execute o comando `chmod +x ./Start.sh` e entao `./Start.sh`, e todos os comandos devem ser executados da forma correta. Certifique-se de que as portas `3000`, `3002`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
-
-<summary> Windows </summary>
-Execute o script Start.  Certifique-se de que as portas `3000`, `3002`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
+Para executa-lo, execute o docker compose up, espere os containers abrirem, entre no localhost:3050 e a aplicacao vai estar funcionando.  Certifique-se de que as portas `3000`, `3050`, `5000` e `5432` estejam abertas; Elas sao as necessarias para a execucao do docker.
 
 
   <br />
