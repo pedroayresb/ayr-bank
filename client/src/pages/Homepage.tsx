@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 function Homepage() {
-  const { user, setUser, url, setHistory } = useContext(AyrContext) as AyrContextInterface;
+  const { user, setUser, url } = useContext(AyrContext) as AyrContextInterface;
   const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(['token']);
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ function Homepage() {
         setUser(response.data);
         setLoading(false);
       } catch (error: any) {
-        console.log(error)
         setLoading(false);
         navigate('/');
       }
