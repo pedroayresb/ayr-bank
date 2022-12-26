@@ -32,16 +32,6 @@ const getHistory = async (req: Request, res: Response) => {
 const getSendHistory = async (req: Request, res: Response) => {
   const { locals: { user } } = res;
   try {
-    const transactions = await getCreditedTransactions(user.id);
-    res.status(200).json(transactions);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-const getRecieveHistory = async (req: Request, res: Response) => {
-  const { locals: { user } } = res;
-  try {
     const transactions = await getDebitedTransactions(user.id);
     res.status(200).json(transactions);
   } catch (error: any) {
@@ -49,4 +39,14 @@ const getRecieveHistory = async (req: Request, res: Response) => {
   }
 };
 
-export { transfer, getHistory, getSendHistory, getRecieveHistory };
+const getReceiveHistory = async (req: Request, res: Response) => {
+  const { locals: { user } } = res;
+  try {
+    const transactions = await getCreditedTransactions(user.id);
+    res.status(200).json(transactions);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export { transfer, getHistory, getSendHistory, getReceiveHistory };

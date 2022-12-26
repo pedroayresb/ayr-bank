@@ -58,60 +58,89 @@ const getCreditedTransactions = async (id: number) => {
     where: {
       creditedAccount: id,
     },
-    include : [
-      {
-        model: UserModel,
-        where: {
-          accountId: id,
-        },
-        attributes: ['name'],
-      }
-    ]
   });
-  return transactions;
+  const withUserNames = await Promise.all(
+    transactions.map(async (transaction) => {
+      const sender = await UserModel.findOne({
+        where: {
+          id: transaction.debitedAccount,
+        },
+      });
+      const receiver = await UserModel.findOne({
+        where: {
+          id: transaction.creditedAccount,
+        },
+      });
+      const transactionWithUserNames = {
+        ...transaction.toJSON(),
+        sender: sender!.name,
+        receiver: receiver!.name,
+      };
+      return transactionWithUserNames;
+    }),
+  );
+  return withUserNames;
 };
 
 const getDebitedTransactions = async (id: number) => {
   const transactions = await TransactionModel.findAll({
     where: {
       debitedAccount: id,
-    },
-    include : [
-      {
-        model: UserModel,
-        where: {
-          accountId: id,
-        },
-        attributes: ['name'],
-      }
-    ]
+    }
   });
-  return transactions;
+  const withUserNames = await Promise.all(
+    transactions.map(async (transaction) => {
+      const sender = await UserModel.findOne({
+        where: {
+          id: transaction.debitedAccount,
+        },
+      });
+      const receiver = await UserModel.findOne({
+        where: {
+          id: transaction.creditedAccount,
+        },
+      });
+      const transactionWithUserNames = {
+        ...transaction.toJSON(),
+        sender: sender!.name,
+        receiver: receiver!.name,
+      };
+      return transactionWithUserNames;
+    }),
+  );
+  return withUserNames;
 };
 
 const getAllTransactions = async (id: number) => {
   const transactions = await TransactionModel.findAll({
     where: {
       [Op.or]: [
-        {
-          debitedAccount: id,
-        },
-        {
-          creditedAccount: id,
-        },
+        { debitedAccount: id },
+        { creditedAccount: id },
       ],
     },
-    include : [
-      {
-        model: UserModel,
-        where: {
-          accountId: id,
-        },
-        attributes: ['name'],
-      }
-    ]
   });
-  return transactions;
+  const withUserNames = await Promise.all(
+    transactions.map(async (transaction) => {
+      const sender = await UserModel.findOne({
+        where: {
+          id: transaction.debitedAccount,
+        },
+      });
+      const receiver = await UserModel.findOne({
+        where: {
+          id: transaction.creditedAccount,
+        },
+      });
+      const transactionWithUserNames = {
+        ...transaction.toJSON(),
+        sender: sender!.name,
+        receiver: receiver!.name,
+      };
+      return transactionWithUserNames;
+    }),
+  );
+  return withUserNames;
 };
 
 export {

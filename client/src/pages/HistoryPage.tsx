@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import AyrContext from '../context/AyrContext';
 import NavigationButtons from '../components/NavigationButtons';
 import HistoryTableContainer from '../components/HistoryTableContainer';
+import HistoryTableFilter from '../components/HistoryTableFilter';
 import { AyrContextInterface } from '../interfaces/UserInterface';
 import { useContext } from 'react';
 import { useCookies } from 'react-cookie';
@@ -19,7 +20,6 @@ function HistoryPage() {
             Authorization: cookies.token,
           },
         });
-        console.log(response.data);
         setHistory(response.data);
       } catch (error: any) {
         console.log(error);
@@ -31,6 +31,7 @@ function HistoryPage() {
   return (
     <div>
       <NavigationButtons />
+      <HistoryTableFilter />
       <h1>History</h1>
       <HistoryTableContainer />
     </div>

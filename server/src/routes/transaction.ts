@@ -1,7 +1,7 @@
 import { transfer, 
   getHistory, 
   getSendHistory, 
-  getRecieveHistory } from '../controllers/transaction.controllers';
+  getReceiveHistory } from '../controllers/transaction.controllers';
 import { Router } from 'express';
 
 const router = Router();
@@ -13,6 +13,6 @@ router
   .put('/transfer', validateToken, hasTo, hasAmount, transfer)
   .get('/history', validateToken, getHistory)
   .get('/sendhistory', validateToken, getSendHistory)
-  .get('/recievehistory', validateToken, getRecieveHistory)
+  .get('/receivehistory', validateToken, getReceiveHistory);
 
 export default router;

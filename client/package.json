@@ -12,6 +12,7 @@
     "@types/react-cookies": "^0.1.0",
     "@types/react-dom": "^18.0.10",
     "axios": "^1.2.1",
+    "date-format": "^4.0.14",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
