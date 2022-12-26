@@ -11,7 +11,7 @@ O projeto é um aplicativo de transferência de dinheiro entre dois usuários. V
 <details>
   <summary><strong>Sobre o projeto</strong></summary>
 
-O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React. Nao tenho muita experiencia com a implementacao de todas em conjunto, entao algumas funcoes podem nao ter sido executadas da maneira correta.
+O projeto utiliza das tecnologias; JavaScript, TypeScript, Docker, Node.js, Postgres, Sequelize, JWS e React.
 
   <br />
 </details>
