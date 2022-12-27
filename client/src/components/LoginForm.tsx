@@ -37,23 +37,30 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">{ registerFormTranslation[language].username }</label>
-      <input
-        type="text"
-        name="name"
-        value={ name }
-        onChange={ handleNameChange }
-      />
-      <label htmlFor="password">{ registerFormTranslation[language].password }</label>
-      <input
-        type="password"
-        name="password"
-        value={ password }
-        onChange={ handlePasswordChange }
-      />
+    <form onSubmit={ handleSubmit } className="grid place-items-center content-center  bg-white">
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="name" className="justify-self-start">{ registerFormTranslation[language].username }: </label>
+        <input
+          type="text"
+          name="name"
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
+          value={ name }
+          onChange={ handleNameChange }
+        />
+      </div>
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="password" className="justify-self-start">{ registerFormTranslation[language].password }: </label>
+        <input
+          type="password"
+          name="password"
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
+          value={ password }
+          onChange={ handlePasswordChange }
+        />
+      </div>
       <button 
-        type="submit">{ registerFormTranslation[language].login }
+        type="submit"
+        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center">{ registerFormTranslation[language].login }
       </button>
       { error && <p>{ error }</p> }
     </form>

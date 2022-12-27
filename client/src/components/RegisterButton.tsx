@@ -8,9 +8,9 @@ function RegisterButton() {
   const { language } = React.useContext(AyrContext) as AyrContextInterface;
 
   return (
-    <>
-      <Link to="/register">{homepageTranslation[language].register}</Link>
-    </>
+    <div className="p-20">
+      <Link to="/register" className="border w-32 rounded-full px-20 py-5 bg-white border-light-purple text-dark-purple font-medium" >{homepageTranslation[language].register}</Link>
+    </div>
   );
 }
 

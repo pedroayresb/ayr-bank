@@ -9,6 +9,10 @@ import HistoryPage from './pages/HistoryPage';
 import AyrProvider from './context/AyrProvider';
 import FlagContainer from './components/FlagContainer';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fas)
 
 function App() {
   return (

@@ -5,6 +5,7 @@ import AyrContext from '../context/AyrContext';
 import NavigationButtons from '../components/NavigationButtons';
 import { AyrContextInterface } from '../interfaces/UserInterface';
 import axios from 'axios';
+import '../App.css';
 
 
 function Homepage() {

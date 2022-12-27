@@ -48,30 +48,41 @@ function RegisterForm() {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">{ registerFormTranslation[language].username }</label>
-      <input
-        type="text"
-        name="name"
-        value={ name }
-        onChange={ handleNameChange }
-      />
-      <label htmlFor="password">{ registerFormTranslation[language].password }</label>
-      <input
-        type="password"
-        name="password"
-        value={ password }
-        onChange={ handlePasswordChange }
-      />
-      <label htmlFor="confirmPassword">{ registerFormTranslation[language].confirmPassword }</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        value={ confirmPassword }
-        onChange={ handleConfirmPasswordChange }
-      />
+    <form onSubmit={ handleSubmit } className="grid place-items-center content-center  bg-white">
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="name" className="justify-self-start">{ registerFormTranslation[language].username }: </label>
+        <input
+          type="text"
+          name="name"
+          value={ name }
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
+          onChange={ handleNameChange }
+        />
+        </div>
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="password" className="justify-self-start">{ registerFormTranslation[language].password }: </label>
+        <input
+          type="password"
+          name="password"
+          value={ password }
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
+          onChange={ handlePasswordChange }
+        />
+        </div>
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="confirmPassword" className="justify-self-start">{ registerFormTranslation[language].confirmPassword }: </label>
+        <input
+          type="password"
+          name="confirmPassword"
+          value={ confirmPassword }
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
+          onChange={ handleConfirmPasswordChange }
+        />
+      </div>
       <button 
-        type="submit">{ registerFormTranslation[language].submit }
+        type="submit"
+        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center"
+        >{ registerFormTranslation[language].submit }        
       </button>
       { error && <p>{ error }</p> }
     </form>

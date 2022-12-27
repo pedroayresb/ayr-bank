@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import AyrContext from "../context/AyrContext";
 import { flagTranslation } from "../utils/flagTranslation";
-import { AyrContextInterface } from "../interfaces/UserInterface"; 
+import { AyrContextInterface } from "../interfaces/UserInterface";
+import "../App.css";
 
 function LanguageButton() {
   const { language, setLanguage } = useContext(AyrContext) as AyrContextInterface;
@@ -20,7 +21,7 @@ function LanguageButton() {
   };
 
   return (
-    <div>
+    <div className="absolute right-3 text-white">
       <button
         onClick={() => changeLanguage(language)}
       >{flagTranslation[language].flag}</button>
