@@ -21,7 +21,6 @@ function RegisterForm() {
       setError("Passwords do not match!");
     } else {
       try {
-        console.log(url)
         const { data: { token } } = await Axios.post(`${url}/user/register`, {
           name,
           password,

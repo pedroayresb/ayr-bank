@@ -6,6 +6,11 @@
   height: 100vh;
 }
 
+.bm-burger-button {
+  width: 50px;
+  background-color: #ac9cd0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

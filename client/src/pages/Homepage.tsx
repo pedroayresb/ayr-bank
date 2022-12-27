@@ -5,11 +5,12 @@ import AyrContext from '../context/AyrContext';
 import NavigationButtons from '../components/NavigationButtons';
 import { AyrContextInterface } from '../interfaces/UserInterface';
 import axios from 'axios';
+import { homepageTranslation } from '../utils/homepageTranslation';
 import '../App.css';
 
 
 function Homepage() {
-  const { user, setUser, url } = useContext(AyrContext) as AyrContextInterface;
+  const { user, setUser, url, language } = useContext(AyrContext) as AyrContextInterface;
   const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(['token']);
   const navigate = useNavigate();
@@ -34,11 +35,14 @@ function Homepage() {
 
   return (
     loading ? <h1>Loading...</h1> :
-    <div>
-      <h1>Homepage</h1>
+    <div className="flex flex-row w-screen">
       <NavigationButtons />
-      <p>{user?.name}</p>
-      <p>{user?.Account.balance}</p>
+      <div id="page-wrap" className="grid h-screen place-items-center content-center bg-light-purple grow">
+        <div className="grid p-40 place-items-center content-center border place-content-around border-gray-light rounded-xl bg-white">
+          <p className="text-7xl">{homepageTranslation[language].welcome}, {user?.name}</p>
+          <p className='text-5xl'>{homepageTranslation[language].balance}: $ {user?.Account.balance.toFixed(2)}</p>
+        </div>
+      </div>
     </div>
   );
 };

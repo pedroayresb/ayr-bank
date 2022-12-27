@@ -35,7 +35,7 @@ function StartPage() {
   }, []);
 
   return (
-    <div className="grid h-screen place-items-center content-center bg-dark-purple">
+    <div className="grid h-screen place-items-center content-center bg-light-purple">
       <div className="grid place-items-center content-center border border-gray-light rounded-xl bg-white">
         <div className="grid place-items-center content-center p-10 w-96">
           <img src={ logoBackgroundless } alt="logo" className="w-52 " />

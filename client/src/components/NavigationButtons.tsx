@@ -17,15 +17,14 @@ function NavigationButtons() {
   
 
   return (
-    <>
+    <div className="flex flex-col">
       <Link to="/home">{navigationTranslation[language].home}</Link>
       <Link to="/transfer">{navigationTranslation[language].transfer}</Link>
       <Link to="/history">{navigationTranslation[language].history}</Link>
-      <Link to="/profile">{navigationTranslation[language].profile}</Link>
       <button 
         onClick={logout}
       >{navigationTranslation[language].logout}</button>
-    </>
+    </div>
   );
 }
 

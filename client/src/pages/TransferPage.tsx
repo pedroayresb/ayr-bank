@@ -15,10 +15,13 @@ function TransferPage() {
   }, []);
   
   return (
-    <div>
+    <div className="flex flex-row w-screen">
       <NavigationButtons />
-      <h1>Transfer Page</h1>
-      <TransferForm />
+      <div id="page-wrap" className="grid h-screen place-items-center content-center bg-light-purple grow">
+        <div className="grid ml-20 place-items-center content-center border border-gray-light rounded-xl bg-white">
+          <TransferForm />
+        </div>
+      </div>
     </div>
   );
 }
