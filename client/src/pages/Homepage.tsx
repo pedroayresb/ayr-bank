@@ -5,6 +5,7 @@ import AyrContext from '../context/AyrContext';
 import NavigationButtons from '../components/NavigationButtons';
 import LastReceiveContainer from '../components/LastReceiveContainer';
 import LastSendContainer from '../components/LastSendContainer';
+import LoadingContainer from '../components/LoadingContainer';
 import { AyrContextInterface } from '../interfaces/UserInterface';
 import { homepageTranslation } from '../utils/homepageTranslation';
 import axios from 'axios';
@@ -36,7 +37,7 @@ function Homepage() {
   }, []);
 
   return (
-    loading ? <h1>Loading...</h1> :
+    loading ? <LoadingContainer /> :
     <div className='flex flex-col h-screen'>
       <NavigationButtons />
       <div id="page-wrap" className="flex flex-row space-evenly bg-offwhite grow">
