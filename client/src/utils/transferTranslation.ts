@@ -28,7 +28,7 @@ export const transferTranslation: Translation = {
   },
   'pt': {
     transfer: 'Transferir',
-    amount: 'Quantidade',
+    amount: 'Valor',
     to: 'Para',
     submit: 'Enviar',
     cancel: 'Cancelar',

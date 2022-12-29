@@ -8,6 +8,7 @@ import { AyrContextInterface } from '../interfaces/UserInterface';
 import { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import Axios from 'axios';
+import logoBackgroundless from '../icons/logo-no-background.png';
 
 function HistoryPage() {
   const navigate = useNavigate();
@@ -35,15 +36,17 @@ function HistoryPage() {
   }, []);
 
   return (
-    <div className="flex flex-row w-screen">
+    <div className='flex flex-col h-screen'>
       <NavigationButtons />
-      <div id="page-wrap" className="grid h-screen place-items-center content-center bg-light-purple grow">
-        <div className="grid ml-20 place-items-center content-center border border-gray-light rounded-xl bg-white">
+      <div id="page-wrap" className="grid h-screen place-items-center content-center bg-offwhite grow">
+        <div className="grid place-items-center content-center border border-gray-light rounded-xl bg-white p-20">
+          <div className="mb-10 w-34">
+              <img src={ logoBackgroundless } alt="logo" className="w-24" />
+          </div> 
           <HistoryTableFilter />
-          <h1>History</h1>
           <HistoryTableContainer />
         </div>
-      </div>  
+      </div> 
     </div>
   );
 }

@@ -50,10 +50,21 @@ function HistoryTableFilter() {
   };
 
   return (
-    <div>
-      <button onClick={getHistory}>{ historyTranslation[language].All }</button>
-      <button onClick={getSentHistory}>{ historyTranslation[language].sendHistory }</button>
-      <button onClick={getReceivedHistory}>{ historyTranslation[language].receiveHistory }</button>
+    <div className="flex flex-col justify-center">
+      <div className="flex flex-row justify-center">
+        <button 
+          onClick={getHistory}
+          className="border rounded-full p-5 bg-dark-purple border-light-purple text-white font-medium text-center hover:bg-white hover:text-dark-purple"
+        >{ historyTranslation[language].All }</button>
+        <button 
+          onClick={getSentHistory}
+          className="border rounded-full p-5 bg-white border-light-purple text-dark-purple font-medium text-center hover:bg-dark-purple hover:text-white"
+        >{ historyTranslation[language].sendHistory }</button>
+        <button 
+          onClick={getReceivedHistory}
+          className="border rounded-full p-5 bg-white border-light-purple text-dark-purple font-medium text-center hover:bg-dark-purple hover:text-white"
+        >{ historyTranslation[language].receiveHistory }</button>
+      </div>
       <FilterByDate />
     </div>
   );

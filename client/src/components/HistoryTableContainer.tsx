@@ -11,20 +11,20 @@ function HistoryTable() {
     <table>
       <thead>
         <tr>
-          <th>{ historyTranslation[language].Value }</th>
-          <th>{ historyTranslation[language].Send }</th>
-          <th>{ historyTranslation[language].Receive }</th>
-          <th>{ historyTranslation[language].Date }</th>
+          <th className='p-7 text-dark-purple'>{ historyTranslation[language].Value }</th>
+          <th className='p-7 text-dark-purple'>{ historyTranslation[language].Send }</th>
+          <th className='p-7 text-dark-purple'>{ historyTranslation[language].Receive }</th>
+          <th className='p-7 text-dark-purple'>{ historyTranslation[language].Date }</th>
         </tr>
       </thead>
       <tbody>
         {history!.length > 0 ? (
           history?.map((transaction) => (
             <tr key={transaction.id}>
-              <td>${transaction.value.toFixed(2)}</td>
-              <td>{transaction.sender}</td>
-              <td>{transaction.receiver}</td>
-              <td>{toDate(transaction.createdAt)}</td>
+              <td className='text-center p-5'>${transaction.value.toFixed(2)}</td>
+              <td className='text-center p-5'>{transaction.sender}</td>
+              <td className='text-center p-5'>{transaction.receiver}</td>
+              <td className='text-center p-5'>{toDate(transaction.createdAt)}</td>
             </tr>
           ))
         ) : (

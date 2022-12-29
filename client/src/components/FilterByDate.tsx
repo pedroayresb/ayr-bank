@@ -28,12 +28,19 @@ function FilterByDate() {
   };
 
   return (
-    <div>
-      <label htmlFor="date">{ historyTranslation[language].startDate }</label>
-      <input type="date" id="date" onChange={ handleStartDate } />
-      <label htmlFor="date">{ historyTranslation[language].endDate }</label>
-      <input type="date" id="date" onChange={ handleEndDate } />
-      <button type="button" onClick={ handleFilterByDate }>{ historyTranslation[language].filter }</button>
+    <div className="flex flex-row justify-between items-center p-5">
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="date">{ historyTranslation[language].startDate }: </label>
+        <input className="border rounded-xl h-12 py-5 px-4 caret-dark-purple" type="date" id="date" onChange={ handleStartDate } />
+      </div>
+      <div className="mt-4 grid place-items-center content-center">
+        <label htmlFor="date">{ historyTranslation[language].endDate }: </label>
+        <input className="border rounded-xl h-12 py-5 px-4 caret-dark-purple" type="date" id="date" onChange={ handleEndDate } />
+      </div>
+      <button 
+        type="button" 
+        onClick={ handleFilterByDate }
+        className="border rounded-full p-3 bg-dark-purple border-light-purple text-white font-medium text-center hover:bg-white hover:text-dark-purple self-end">{ historyTranslation[language].filter }</button>
     </div>
   );
 }

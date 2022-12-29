@@ -5,11 +5,13 @@ import { transferTranslation } from "../utils/transferTranslation";
 import Axios from "axios";
 import { useCookies } from "react-cookie";
 
+
 function TransferForm() {
   const { language, url } = useContext(AyrContext) as AyrContextInterface;
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(null as null | number);
   const [receiver, setReceiver] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("" as string | null);
   const [completed, setCompleted] = useState('');
   const [cookies] = useCookies(["token"]);
 
@@ -28,35 +30,42 @@ function TransferForm() {
       setCompleted(transferTranslation[language].completed);
       setLoading(false);
     } catch (error: any) {
-      setCompleted(error);
+      setError(error.response.data.message)
       setLoading(false);
     }
   };
 
   return (
-    <form>
+    <form className="grid place-items-center content-center  bg-white">
       {loading && <p>Loading...</p>}
-      <label>
-        { transferTranslation[language].amount }
+      <div className="mt-4 grid place-items-center content-center">
+        <label className="justify-self-start">
+          { transferTranslation[language].amount }: 
+        </label>
         <input
           type="number"
-          value={amount}
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
           onChange={(event) => setAmount(Number(event.target.value))}
-        />
-      </label>
-      <label>
-        { transferTranslation[language].to }
+        />        
+      </div>
+      <div className="mt-4 grid place-items-center content-center">
+        <label className="justify-self-start">
+          { transferTranslation[language].to }: 
+        </label>
         <input
           type="text"
           value={receiver}
+          className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
           onChange={(event) => setReceiver(event.target.value)}
         />
-      </label>
+      </div>
       <button 
         type="button"
         onClick={handleSubmit}
+        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center"
       >{ transferTranslation[language].submit }</button>
-      { completed && <p>{ transferTranslation[language].completed }</p> }
+      { completed && <p className="text-green-800 mt-5">{ transferTranslation[language].completed }</p> }
+      { error && <p className="text-red mt-5">{ error }</p> }
     </form>
   );
 }

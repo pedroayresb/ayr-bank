@@ -10,7 +10,7 @@ function LoginButton() {
 
   return (
     <div className="p-20">
-      <Link to="/login" className="border w-32 rounded-full px-20 py-5 bg-dark-purple border-light-purple text-white font-medium">{ homepageTranslation[language].login }</Link>
+      <Link to="/login" className="border w-32 rounded-full px-20 py-5 bg-dark-purple border-light-purple text-white font-medium hover:bg-white hover:text-dark-purple">{ homepageTranslation[language].login }</Link>
     </div>
   );
 }

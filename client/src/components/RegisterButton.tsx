@@ -9,7 +9,7 @@ function RegisterButton() {
 
   return (
     <div className="p-20">
-      <Link to="/register" className="border w-32 rounded-full px-20 py-5 bg-white border-light-purple text-dark-purple font-medium" >{homepageTranslation[language].register}</Link>
+      <Link to="/register" className="border w-32 rounded-full px-20 py-5 bg-white border-light-purple text-dark-purple font-medium hover:bg-dark-purple hover:text-white" >{homepageTranslation[language].register}</Link>
     </div>
   );
 }

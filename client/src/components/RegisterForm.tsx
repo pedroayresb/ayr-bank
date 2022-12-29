@@ -57,7 +57,7 @@ function RegisterForm() {
           className="border rounded-xl h-12 py-5 px-4 caret-dark-purple"
           onChange={ handleNameChange }
         />
-        </div>
+      </div>
       <div className="mt-4 grid place-items-center content-center">
         <label htmlFor="password" className="justify-self-start">{ registerFormTranslation[language].password }: </label>
         <input
@@ -80,7 +80,7 @@ function RegisterForm() {
       </div>
       <button 
         type="submit"
-        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center"
+        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center hover:bg-white hover:text-dark-purple"
         >{ registerFormTranslation[language].submit }        
       </button>
       { error && <p className="mt-5 text-red">{ error }</p> }
