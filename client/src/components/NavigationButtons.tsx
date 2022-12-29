@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import AyrContext from "../context/AyrContext";
 import { navigationTranslation } from "../utils/navigationTranslation";
 import { AyrContextInterface } from "../interfaces/UserInterface";
+import logoBackgroundless from '../icons/logo-white.png';
+import NavigationButtonsConfigs from "./NavigationButtonsConfigs";
 import { useCookies } from "react-cookie";
 
 function NavigationButtons() {
@@ -17,12 +19,16 @@ function NavigationButtons() {
   
 
   return (
-    <div className="flex flex-col">
-      <Link to="/home">{navigationTranslation[language].home}</Link>
-      <Link to="/transfer">{navigationTranslation[language].transfer}</Link>
-      <Link to="/history">{navigationTranslation[language].history}</Link>
+    <div className="flex justify-around p-5 items-center text-white bg-dark-purple">
+      <div className="flex flex-row items-center gap-14">
+        <img src={logoBackgroundless} alt="logo" className="w-16" />
+        <NavigationButtonsConfigs to={'home'} language={ language } />
+        <NavigationButtonsConfigs to={'transfer'} language={ language } />
+        <NavigationButtonsConfigs to={'history'} language={ language } />
+      </div>
       <button 
         onClick={logout}
+        className="border border-dark-purple rounded-full bg-dark-purple p-2 hover:border-light-purple"
       >{navigationTranslation[language].logout}</button>
     </div>
   );

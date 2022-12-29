@@ -6,6 +6,10 @@ type Translation = {
     submit: string;
     cancel: string;
     completed: string;
+    from: string;
+    date: string;
+    noSent: string;
+    noReceived: string;
   };
 };
 
@@ -17,6 +21,10 @@ export const transferTranslation: Translation = {
     submit: 'Submit',
     cancel: 'Cancel',
     completed: 'Transfer completed',
+    from: 'From',
+    date: 'Date',
+    noSent: 'No sent transfers',
+    noReceived: 'No received transfers',
   },
   'pt': {
     transfer: 'Transferir',
@@ -25,5 +33,9 @@ export const transferTranslation: Translation = {
     submit: 'Enviar',
     cancel: 'Cancelar',
     completed: 'Transferência concluída',
+    from: 'De',
+    date: 'Data',
+    noSent: 'Nenhuma transferência enviada',
+    noReceived: 'Nenhuma transferência recebida',
   },
 };

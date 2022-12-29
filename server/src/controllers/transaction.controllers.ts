@@ -4,6 +4,8 @@ import {
   getAllTransactions,
   getCreditedTransactions,
   getDebitedTransactions,
+  getLastCreditedTransaction,
+  getLastDebitedTransaction,
 } from '../services/transaction.services';
 import { getProfileByName } from '../services/users.services';
 
@@ -49,4 +51,24 @@ const getReceiveHistory = async (req: Request, res: Response) => {
   }
 };
 
-export { transfer, getHistory, getSendHistory, getReceiveHistory };
+const getLastSent = async (req: Request, res: Response) => {
+  const { locals: { user } } = res;
+  try {
+    const transactions = await getLastDebitedTransaction(user.id);
+    res.status(200).json(transactions);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getLastReceived = async (req: Request, res: Response) => {
+  const { locals: { user } } = res;
+  try {
+    const transactions = await getLastCreditedTransaction(user.id);
+    res.status(200).json(transactions);  
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export { transfer, getHistory, getSendHistory, getReceiveHistory, getLastSent, getLastReceived };

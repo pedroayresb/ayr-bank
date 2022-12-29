@@ -2,17 +2,10 @@ import React, { useContext } from 'react';
 import AyrContext from '../context/AyrContext';
 import { AyrContextInterface } from '../interfaces/UserInterface';
 import { historyTranslation } from '../utils/historyTranslation';
-
-const format = require('date-format');
+import toDate from '../utils/dateManipulation';
 
 function HistoryTable() {
   const { history, language } = useContext(AyrContext) as AyrContextInterface;
-
-  const toDate = (date: Date) => {
-    const dated = format.parse(format.ISO8601_FORMAT, date);
-    const formated = format('dd-MM-yyyy hh:mm:ss', dated);
-    return formated;
-  };
 
   return (
     <table>

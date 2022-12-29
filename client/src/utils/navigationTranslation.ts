@@ -5,6 +5,7 @@ type Translation =  {
     history: string;
     profile: string;
     logout: string;
+    [key: string]: string;
   };
 }
 

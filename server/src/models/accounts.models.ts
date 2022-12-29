@@ -18,7 +18,7 @@ const Account = sequelize.define<AccountInstance>('Account', {
     primaryKey: true,
   },
   balance: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
 });

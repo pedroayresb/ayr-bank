@@ -21,7 +21,8 @@ module.exports = {
         'dark-blue': '#3c6382',
         'gray': '#8492a6',
         'gray-light': '#ededed',
-        'offwhite': '#FFFAFA',
+        'offwhite': '#f7f5f0',
+        'red': '#e3342f',
       },
       spacing: {
         px: '1px',

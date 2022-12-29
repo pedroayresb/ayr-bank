@@ -83,7 +83,7 @@ function RegisterForm() {
         className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center"
         >{ registerFormTranslation[language].submit }        
       </button>
-      { error && <p>{ error }</p> }
+      { error && <p className="mt-5 text-red">{ error }</p> }
     </form>
   );
 }

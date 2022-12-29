@@ -7,7 +7,7 @@ import '../App.css';
 
 function LoginPage() {
   return (
-    <div className="grid h-screen place-items-center content-center bg-light-purple">
+    <div className="grid h-screen place-items-center content-center bg-offwhite">
       <div className="grid place-items-center content-center border border-gray-light rounded-xl bg-white">
         <div className="m-10 w-34">
           <img src={ logoBackgroundless } alt="logo" className="w-24" />

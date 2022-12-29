@@ -22,11 +22,11 @@ const createTransaction = async (
     },
     include: AccountModel,
   }) as UserWithAccount | null;
-  const senderBalance = sender!.Account!.balance - amount;
-  const receiverBalance = receiver!.Account!.balance + amount;
+  const senderBalance = Number(sender!.Account!.balance - amount).toFixed(2);
+  const receiverBalance = Number(receiver!.Account!.balance + amount).toFixed(2); 
   await AccountModel.update(
     {
-      balance: senderBalance,
+      balance: Number(senderBalance),
     },
     {
       where: {
@@ -36,7 +36,7 @@ const createTransaction = async (
   );
   await AccountModel.update(
     {
-      balance: receiverBalance,
+      balance: Number(receiverBalance),
     },
     {
       where: {
@@ -47,7 +47,7 @@ const createTransaction = async (
   const transaction = await TransactionModel.create({
     debitedAccount: sender!.accountId,
     creditedAccount: receiver!.accountId,
-    value: amount,
+    value: Number(amount),
   });
 
   return transaction;
@@ -111,6 +111,62 @@ const getDebitedTransactions = async (id: number) => {
   return withUserNames;
 };
 
+const getLastDebitedTransaction = async (id: number) => {
+  const transaction = await TransactionModel.findOne({
+    where: {
+      debitedAccount: id,
+    },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+    limit: 1,
+  });
+  const sender = await UserModel.findOne({
+    where: {
+      id: transaction!.debitedAccount,
+    },
+  });
+  const receiver = await UserModel.findOne({
+    where: {
+      id: transaction!.creditedAccount,
+    },
+  });
+  const transactionWithUserNames = {
+    ...transaction!.toJSON(),
+    sender: sender!.name,
+    receiver: receiver!.name,
+  };
+  return transactionWithUserNames;
+};
+
+const getLastCreditedTransaction = async (id: number) => {
+  const transaction = await TransactionModel.findOne({
+    where: {
+      creditedAccount: id,
+    },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+    limit: 1,
+  });
+  const sender = await UserModel.findOne({
+    where: {
+      id: transaction!.debitedAccount,
+    },
+  });
+  const receiver = await UserModel.findOne({
+    where: {
+      id: transaction!.creditedAccount,
+    },
+  });
+  const transactionWithUserNames = {
+    ...transaction!.toJSON(),
+    sender: sender!.name,
+    receiver: receiver!.name,
+  };
+  return transactionWithUserNames;
+};
+
 const getAllTransactions = async (id: number) => {
   const transactions = await TransactionModel.findAll({
     where: {
@@ -148,4 +204,6 @@ export {
   getAllTransactions,
   getCreditedTransactions,
   getDebitedTransactions,
+  getLastCreditedTransaction,
+  getLastDebitedTransaction,
 };

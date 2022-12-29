@@ -36,7 +36,7 @@ const Transactions = sequelize.define<TransactionsInstance>('Transactions', {
     },
   },
   value: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
 });

@@ -18,7 +18,6 @@ function App() {
   return (
     <AyrProvider>
       <BrowserRouter>
-        <FlagContainer />
         <Routes>
           <Route path="/" element={ <Startpage /> } />
           <Route path="/login" element={ <LoginPage /> } />
@@ -27,6 +26,7 @@ function App() {
           <Route path="/transfer" element={ <TransferPage /> } />
           <Route path="/history" element={ <HistoryPage /> } />
         </Routes>
+        <FlagContainer />
       </BrowserRouter>
     </AyrProvider>
   );
