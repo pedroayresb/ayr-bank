@@ -12,7 +12,7 @@ const pathToEnv = __dirname.split('/client')[0];
 
 dotenv.config({ path: pathToEnv+'/.env'});
 
-const apiUrl: string = process.env.REACT_APP_API_URL || 'localhost';
+const apiUrl: string = 'api';
 
 const AyrProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
