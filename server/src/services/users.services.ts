@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import UserModel from '../models/users.models';
 import AccountModel from '../models/accounts.models';
 import CryptoJS from 'crypto-js';
+
+const pathToEnv = __dirname.split('/server')[0];
+
+dotenv.config({ path: pathToEnv+'/.env'});
 
 const secret: string = process.env.JWT_SECRET || 'secret';
 

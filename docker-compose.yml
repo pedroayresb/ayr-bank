@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=postgres
     ports:
       - "3002:5432"
@@ -19,10 +19,10 @@ services:
       dockerfile: ./server/Dockerfile.dev
     environment:
       - EXTERNAL_PORT=5000
-      - DATABASE=postgres
-      - USERNAME=postgres
-      - HOST=postgres
-      - PASSWORD=postgres_password
+      - DB_DATABASE=postgres
+      - DB_USERNAME=postgres
+      - DB_HOST=postgres
+      - DB_PASSWORD=password
       - POSTGRES_PORT=5432
       - JWT_SECRET=secret
     volumes:

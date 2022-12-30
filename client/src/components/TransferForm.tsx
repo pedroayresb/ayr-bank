@@ -30,7 +30,7 @@ function TransferForm() {
       setCompleted(transferTranslation[language].completed);
       setLoading(false);
     } catch (error: any) {
-      setError(error.response.data.message)
+      setError(error.response.data.error)
       setLoading(false);
     }
   };
@@ -62,7 +62,7 @@ function TransferForm() {
       <button 
         type="button"
         onClick={handleSubmit}
-        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center"
+        className="border w-56 mt-12 rounded-full py-5 bg-dark-purple border-light-purple text-white font-medium text-center hover:bg-white hover:text-dark-purple"
       >{ transferTranslation[language].submit }</button>
       { completed && <p className="text-green-800 mt-5">{ transferTranslation[language].completed }</p> }
       { error && <p className="text-red mt-5">{ error }</p> }

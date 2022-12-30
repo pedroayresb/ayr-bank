@@ -9,7 +9,6 @@ import dbInit from './models/init';
 dbInit();
 
 const app = express();
-const client = 'client' || 'localhost'
 
 app.use(express.json());
 
