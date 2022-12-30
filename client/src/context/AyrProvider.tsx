@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import AyrContext from './AyrContext';
-import dotenv from 'dotenv';
 import PropTypes from 'prop-types';
 import { UserInterface, AyrContextInterface } from '../interfaces/UserInterface';
 import HistoryInterface from '../interfaces/HistoryInterface';
 interface Props {
   children: React.ReactNode;
 }
-
-const pathToEnv = __dirname.split('/client')[0];
-
-dotenv.config({ path: pathToEnv+'/.env'});
 
 const apiUrl: string = 'api';
 
