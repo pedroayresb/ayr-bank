@@ -17,6 +17,7 @@ O AyrBank é desenvolvido usando as seguintes tecnologias:
  - Nginx
 
 ## Características
+
 **Cadastro e Login**: É possível se cadastrar na plataforma e fazer login usando suas credenciais.
 
 **Histórico de Transferências**: Você tem acesso ao seu histórico de transferências, permitindo que você visualize todas as transferências realizadas a qualquer momento.
@@ -29,7 +30,11 @@ O AyrBank é desenvolvido usando as seguintes tecnologias:
 
 Para instalar o AyrBank em sua máquina, siga os seguintes passos:
 
-### Execução com o Docker
+#### Clone o repositório do AyrBank para sua máquina.
+
+```bash
+git clone git@github.com:pedroayresb/ayr-bank.git
+```
 
 #### Execute o compose
 
@@ -39,4 +44,3 @@ docker compose up
 Certifique-se de que as portas `3000`, `3050`, `5000` e `5432` estejam abertas, elas são as necessarias para a execução com o Docker
 
 Agora, você pode acessar o AyrBank em seu navegador, usando o endereço http://localhost:3050.
-
